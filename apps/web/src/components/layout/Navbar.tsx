@@ -13,7 +13,7 @@ interface NavItem {
   isChat?: boolean
 }
 
-export default function BottomNav() {
+export default function Navbar() {
   const pathname = usePathname()
 
   const navItems: NavItem[] = [

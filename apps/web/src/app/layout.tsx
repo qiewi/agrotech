@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { DM_Sans } from "next/font/google"
 import "./globals.css"
-import BottomNav from "@/components/layout/BottomNav"
+import BottomNav from "@/components/layout/Navbar"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

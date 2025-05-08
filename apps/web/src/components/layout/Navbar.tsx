@@ -20,8 +20,8 @@ export default function BottomNav() {
     {
       icon: <HomeIcon className="w-6 h-6" />,
       label: "Home",
-      href: "/",
-      active: pathname === "/",
+      href: "/home",
+      active: pathname === "/home",
     },
     {
       icon: <SearchStatusIcon className="w-6 h-6" />,

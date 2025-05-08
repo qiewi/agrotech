@@ -5,8 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev:web": "pnpm --filter web dev", 
-    "dev:api": "cd apps/api && source venv/bin/activate && uvicorn app.main:app --reload --port 8000", 
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "cd apps/api && source venv/bin/activate && uvicorn app.main:app --reload --port 8000",
     "dev": "concurrently \"pnpm run dev:web\" \"pnpm run dev:api\""
   },
   "keywords": [],
@@ -14,5 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "lucide-react": "^0.508.0"
   }
 }

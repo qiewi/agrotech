@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { DM_Sans } from "next/font/google"
 import "./globals.css"
-import { Navbar } from "@/components/layout/Navbar"
+import BottomNav from "@/components/layout/BottomNav"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`min-h-screen w-full flex justify-center bg-slate-100 ${dmSans.className}`}>
         <main className="w-full max-w-[390px] flex flex-col items-center">
           {children}
-          <Navbar />
+          <BottomNav />
         </main>
       </body>
     </html>

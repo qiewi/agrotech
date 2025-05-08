@@ -13,7 +13,6 @@ export default function Home() {
       temperature: 24,
       humidity: 67,
       imageUrl: "/images/lahan.webp",
-      href: "/fields/jagung",
     },
     {
       id: 2,
@@ -21,7 +20,6 @@ export default function Home() {
       temperature: 24,
       humidity: 67,
       imageUrl: "/images/lahan.webp",
-      href: "/fields/tomat",
     },
     {
       id: 3,
@@ -29,7 +27,6 @@ export default function Home() {
       temperature: 25,
       humidity: 70,
       imageUrl: "/images/lahan.webp",
-      href: "/fields/padi",
     },
     {
       id: 4,
@@ -37,7 +34,6 @@ export default function Home() {
       temperature: 26,
       humidity: 65,
       imageUrl: "/images/lahan.webp",
-      href: "/fields/cabai",
     },
   ]
 
@@ -71,7 +67,6 @@ export default function Home() {
               temperature={field.temperature}
               humidity={field.humidity}
               imageUrl={field.imageUrl}
-              href={field.href}
             />
           ))}
         </div>

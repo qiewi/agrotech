@@ -8,13 +8,13 @@ interface WeatherCardProps {
   windSpeed: string
 }
 
-export default function WeatherCard({
+const WeatherCard = ({
   temperature = 24,
   condition = "Today is partly sunny day!",
   humidity = 77,
   precipitation = "< 0.01 in",
   windSpeed = "6 mph/s",
-}: WeatherCardProps) {
+}: WeatherCardProps) => {
   return (
     <div
       className="w-full rounded-xl p-5 bg-opacity-60"
@@ -50,3 +50,5 @@ export default function WeatherCard({
     </div>
   )
 }
+
+export default WeatherCard

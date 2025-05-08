@@ -41,8 +41,8 @@
 }
 
 @theme {
-  --color-primary: #2D6948;
-  --color-secondary: #E9EDF0;
+  --color-greenish: #2D6948;
+  --color-greyish: #E9EDF0;
   --font-dm-sans: 'DM Sans', sans-serif;
 }
 

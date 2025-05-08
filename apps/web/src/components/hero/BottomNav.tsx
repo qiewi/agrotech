@@ -51,7 +51,7 @@ export default function BottomNav({ activeTab = "home" }) {
         <Link key={item.label || "chat"} href={item.href} className="flex flex-col items-center">
           {item.isChat ? (
             <div className="p-[2px] rounded-lg border border-gray-400">
-              <div className="bg-emerald-700 p-2 rounded-md">
+              <div className="bg-greenish p-2 rounded-md">
                 <div className="text-white">{item.icon}</div>
               </div>
             </div>

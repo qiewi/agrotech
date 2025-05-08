@@ -1,5 +1,8 @@
+"use client"
+
 import type React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { HomeIcon, ShopIcon, ProfileIcon, SearchStatusIcon, MessageIcon } from "@/components/icons/VuesaxIcons"
 
 interface NavItem {
@@ -10,38 +13,40 @@ interface NavItem {
   isChat?: boolean
 }
 
-export default function BottomNav({ activeTab = "home" }) {
+export default function BottomNav() {
+  const pathname = usePathname()
+
   const navItems: NavItem[] = [
     {
       icon: <HomeIcon className="w-6 h-6" />,
       label: "Home",
       href: "/",
-      active: activeTab === "home",
+      active: pathname === "/",
     },
     {
       icon: <SearchStatusIcon className="w-6 h-6" />,
       label: "Diagnosis",
-      href: "/diagnosis",
-      active: activeTab === "diagnosis",
+      href: "/plant-diagnosis",
+      active: pathname === "/plant-diagnosis",
     },
     {
       icon: <MessageIcon className="w-6 h-6" />,
       label: "",
       href: "/chat",
-      active: activeTab === "chat",
+      active: pathname === "/chat",
       isChat: true,
     },
     {
       icon: <ShopIcon className="w-6 h-6" />,
       label: "Market",
       href: "/market",
-      active: activeTab === "market",
+      active: pathname === "/market",
     },
     {
       icon: <ProfileIcon className="w-6 h-6" />,
       label: "Profile",
       href: "/profile",
-      active: activeTab === "profile",
+      active: pathname === "/profile",
     },
   ]
 

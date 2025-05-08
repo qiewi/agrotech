@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { Bell, MapPin } from "lucide-react"
-import WeatherCard from "@/components/hero/WeatherCard"
-import AiInsightCard from "@/components/hero/AiInsightCard"
-import FieldCard from "@/components/hero/FieldCard"
-import BottomNav from "@/components/hero/BottomNav"
+import WeatherCard from "@/components/layout/WeatherCard"
+import AiInsightCard from "@/components/layout/AiInsightCard"
+import FieldCard from "@/components/layout/FieldCard"
+import BottomNav from "@/components/layout/BottomNav"
 
 export default function Home() {
   const fields = [
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </div>
 
-      <BottomNav activeTab="home" />
+      <BottomNav />
     </div>
   )
 }

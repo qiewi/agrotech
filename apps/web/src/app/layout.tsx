@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`min-h-screen w-full flex justify-center bg-slate-100 ${dmSans.className}`}>
+      <body className={`min-h-screen w-full flex justify-center bg-white ${dmSans.className}`}>
         <main className="w-full max-w-[390px] flex flex-col items-center">
           {children}
           <BottomNav />

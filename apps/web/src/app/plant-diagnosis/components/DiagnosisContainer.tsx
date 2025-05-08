@@ -12,7 +12,7 @@ export function DiagnosisContainer() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-4 pt-12 pb-24">
+    <div className={`w-full h-full flex flex-col items-center justify-center px-4 ${!showResults ? "pt-12" : "pt-4   "} pb-24`}>
       <DiagnosisHeader showResults={showResults} />
       <div className={`w-full ${!showResults ? "mt-8" : "mt-0"}`}>
         <UploadSection onResultsChange={handleResultsChange} />

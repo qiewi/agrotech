@@ -135,9 +135,9 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
   if (showResults && selectedImage && diagnosisResult) {
     return (
       <div className="w-full flex flex-col items-center">
-        <div className="w-full bg-white rounded-xl overflow-hidden">
+        <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg px-2">
           {/* Back button */}
-          <div className="p-4">
+          <div className="py-4">
             <Button
               variant="ghost"
               className="flex items-center text-black p-0 hover:bg-transparent"

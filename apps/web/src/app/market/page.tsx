@@ -51,7 +51,6 @@ const PROVINSI = [
   "Sumatera Selatan",
   "Sumatera Utara",
 ];
-
 type KomoditasData = {
   [komoditas: string]: {
     [tanggal: string]: {
@@ -64,8 +63,10 @@ export default function FoodPriceInfo() {
   const [data, setData] = useState<KomoditasData>({});
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedProvinsi, setSelectedProvinsi] = useState<string>("Nasional");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch("http://localhost:8000/api/pangan")
       .then((res) => res.json())
       .then((json) => {
@@ -75,16 +76,15 @@ export default function FoodPriceInfo() {
           const allDates = Object.keys(json[firstKomoditas]);
           if (allDates.length > 0) setSelectedDate(allDates[0]);
         }
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  // Ambil tanggal-tanggal yang tersedia (dari komoditas pertama yang ada)
   const availableDates =
     data && KOMODITAS.find((k) => data[k])
       ? Object.keys(data[KOMODITAS.find((k) => data[k])!])
       : [];
 
-  // Fungsi ambil harga sesuai provinsi
   function getPrice(prices: { [prov: string]: number | null }) {
     if (selectedProvinsi === "Nasional") {
       const all = Object.values(prices).filter((v) => v !== null) as number[];
@@ -115,7 +115,6 @@ export default function FoodPriceInfo() {
 
       {/* Filter */}
       <div className="p-4 flex flex-col gap-2">
-        {/* Date Picker */}
         {availableDates.length > 0 && (
           <CustomDatePicker
             availableDates={availableDates}
@@ -123,7 +122,6 @@ export default function FoodPriceInfo() {
             onSelect={setSelectedDate}
           />
         )}
-        {/* Provinsi Picker */}
         <select
           className="border rounded px-3 py-2 w-full"
           value={selectedProvinsi}
@@ -139,20 +137,46 @@ export default function FoodPriceInfo() {
 
       {/* Content */}
       <div className="flex-1 p-4 space-y-6">
-        {KOMODITAS.map((komoditas) => {
-          const komoditasData = data[komoditas]?.[selectedDate];
-          if (!komoditasData) return null;
-          const price = getPrice(komoditasData);
-          return (
-            <FoodPriceCard
-              key={komoditas}
-              title={komoditas}
-              price={price}
-              imageSrc={`/${komoditas.toLowerCase().replace(/ /g, "-")}.png`}
-              imageAlt={komoditas}
-            />
-          );
-        })}
+        {loading ? (
+          <div className="flex justify-center items-center h-40">
+            <svg
+              className="animate-spin h-8 w-8 text-green-700"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8z"
+              ></path>
+            </svg>
+            <span className="ml-2 text-green-700 font-medium">Loading...</span>
+          </div>
+        ) : (
+          KOMODITAS.map((komoditas) => {
+            const komoditasData = data[komoditas]?.[selectedDate];
+            if (!komoditasData) return null;
+            const price = getPrice(komoditasData);
+            return (
+              <FoodPriceCard
+                key={komoditas}
+                title={komoditas}
+                price={price}
+                imageSrc={`/${komoditas.toLowerCase().replace(/ /g, "-")}.png`}
+                imageAlt={komoditas}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );

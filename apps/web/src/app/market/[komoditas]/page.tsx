@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "next/navigation";
 
 // Dummy deskripsi, bisa fetch dari API jika ada
 const DESKRIPSI: Record<string, string> = {
@@ -58,7 +59,12 @@ type KomoditasData = {
   };
 };
 
-import { useParams } from "next/navigation";
+function normalizeKomoditasParam(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/[().]/g, "")
+    .replace(/ /g, "-");
+}
 
 export default function DetailPage() {
   const params = useParams();
@@ -66,10 +72,10 @@ export default function DetailPage() {
     ? params.komoditas[0]
     : params.komoditas;
 
-  // Normalisasi nama komoditas
+  const komoditasFile = normalizeKomoditasParam(komoditasParam ?? "");
   const komoditas = (komoditasParam ?? "").replace(/-/g, " ");
-  const imageSrc = `/${komoditasParam}.png`;
-  const deskripsi = DESKRIPSI[komoditasParam ?? ""] || "Deskripsi belum tersedia.";
+  const imageSrc = `/${komoditasFile}.png`;
+  const deskripsi = DESKRIPSI[komoditasFile] || "Deskripsi belum tersedia.";
 
   // State
   const [data, setData] = useState<KomoditasData>({});
@@ -79,12 +85,13 @@ export default function DetailPage() {
 
   // Fetch data komoditas
   useEffect(() => {
-    fetch("http://localhost:8000/api/pangan")
+    if (!komoditasFile) return;
+    fetch(`http://localhost:8000/api/pangan/${komoditasFile}`)
       .then((res) => res.json())
       .then((json) => {
-        setData(json[komoditas] || {});
+        setData(json && !json.error ? json : {});
       });
-  }, [komoditas]);
+  }, [komoditasFile]);
 
   // Ambil tahun-tahun yang tersedia
   const years = Array.from(

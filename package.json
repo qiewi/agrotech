@@ -16,6 +16,7 @@
     "concurrently": "^9.1.2"
   },
   "dependencies": {
-    "lucide-react": "^0.508.0"
+    "lucide-react": "^0.508.0",
+    "zod": "^3.24.4"
   }
 }

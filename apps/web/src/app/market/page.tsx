@@ -1,56 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import FoodPriceCard from "@/components/market/FoodPriceCard";
-import CustomDatePicker from "@/components/market/CustomDatePicker";
+import FoodPriceCard from "@/components/pages/market/FoodPriceCard";
+import CustomDatePicker from "@/components/pages/market/CustomDatePicker";
+import { PROVINSI } from "@/lib/data/data-provinsi";
+import { KOMODITAS } from "@/lib/data/data-komoditas";
 
-
-const KOMODITAS = [
-  "Bawang Merah",
-  "Bawang Putih Bonggol",
-  "Beras Medium",
-  "Beras Premium",
-  "Cabai Merah Keriting",
-  "Cabai Rawit Merah",
-];
-
-const PROVINSI = [
-  "Nasional",
-  "Aceh",
-  "Bali",
-  "Banten",
-  "Bengkulu",
-  "DI Yogyakarta",
-  "DKI Jakarta",
-  "Gorontalo",
-  "Jambi",
-  "Jawa Barat",
-  "Jawa Tengah",
-  "Jawa Timur",
-  "Kalimantan Barat",
-  "Kalimantan Selatan",
-  "Kalimantan Tengah",
-  "Kalimantan Timur",
-  "Kalimantan Utara",
-  "Kepulauan Bangka Belitung",
-  "Kepulauan Riau",
-  "Lampung",
-  "Maluku",
-  "Maluku Utara",
-  "Nusa Tenggara Barat",
-  "Nusa Tenggara Timur",
-  "Papua",
-  "Papua Barat",
-  "Riau",
-  "Sulawesi Barat",
-  "Sulawesi Selatan",
-  "Sulawesi Tengah",
-  "Sulawesi Tenggara",
-  "Sulawesi Utara",
-  "Sumatera Barat",
-  "Sumatera Selatan",
-  "Sumatera Utara",
-];
 type KomoditasData = {
   [komoditas: string]: {
     [tanggal: string]: {

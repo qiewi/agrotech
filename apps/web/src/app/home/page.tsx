@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { Bell, MapPin } from "lucide-react"
-import WeatherCard from "@/app/home/components/WeatherCard"
-import AiInsightCard from "@/app/home/components/AiInsightCard"
-import FieldCard from "@/app/home/components/FieldCard"
+import WeatherCard from "@/components/pages/home/WeatherCard"
+import AiInsightCard from "@/components/pages/home/AiInsightCard"
+import FieldCard from "@/components/pages/home/FieldCard"
 import BottomNav from "@/components/layout/Navbar"
 
 export default function Home() {

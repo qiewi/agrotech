@@ -1,4 +1,4 @@
-import { DiagnosisContainer } from "./components/DiagnosisContainer"
+import { DiagnosisContainer } from "@/components/pages/plant-diagnosis/DiagnosisContainer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {

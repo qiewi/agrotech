@@ -23,7 +23,7 @@ interface Message {
             key={index}
             className={`w-fit max-w-[70%] mb-3 px-4 py-2 rounded-lg break-words ${
               msg.sender === "user"
-                ? "ml-auto bg-greenish/15 text-left"
+                ? "ml-auto bg-greenish text-left text-white"
                 : "mr-auto bg-gray-200 text-left"
             }`}
           >

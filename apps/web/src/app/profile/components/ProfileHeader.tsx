@@ -19,7 +19,7 @@ export default function ProfileHeader() {
           />
           <Pencil className="w-4 h-4 text-gray-500" />
         </div>
-      <div className="flex items-center justify-center gap-2 text-sm bg-gray-100 px-3 py-1.5 rounded-full w-fit mx-auto mt-3">
+      <div className="flex items-center justify-center gap-2 text-sm bg-gray-100 px-3 py-1.5 rounded-full w-fit mx-auto mt-2">
         <span className="text-black text-xs">📍</span>
         <span className="font-medium text-gray-700">Canggu, Bali</span>
       </div>

@@ -5,53 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import { PROVINSI } from "@/lib/data/data-provinsi";
+import { DESKRIPSI } from "@/lib/data/komoditas-deskripsi";
 
-// Dummy deskripsi, bisa fetch dari API jika ada
-const DESKRIPSI: Record<string, string> = {
-  "beras-premium":
-    "Beras Premium adalah beras dengan kualitas terbaik, kadar air rendah, dan butir utuh. Cocok untuk konsumsi sehari-hari.",
-  "bawang-merah":
-    "Bawang Merah adalah salah satu bumbu dapur utama di Indonesia, digunakan untuk berbagai masakan.",
-  // ... tambahkan sesuai kebutuhan
-};
-
-const PROVINSI = [
-  "Nasional",
-  "Aceh",
-  "Bali",
-  "Banten",
-  "Bengkulu",
-  "DI Yogyakarta",
-  "DKI Jakarta",
-  "Gorontalo",
-  "Jambi",
-  "Jawa Barat",
-  "Jawa Tengah",
-  "Jawa Timur",
-  "Kalimantan Barat",
-  "Kalimantan Selatan",
-  "Kalimantan Tengah",
-  "Kalimantan Timur",
-  "Kalimantan Utara",
-  "Kepulauan Bangka Belitung",
-  "Kepulauan Riau",
-  "Lampung",
-  "Maluku",
-  "Maluku Utara",
-  "Nusa Tenggara Barat",
-  "Nusa Tenggara Timur",
-  "Papua",
-  "Papua Barat",
-  "Riau",
-  "Sulawesi Barat",
-  "Sulawesi Selatan",
-  "Sulawesi Tengah",
-  "Sulawesi Tenggara",
-  "Sulawesi Utara",
-  "Sumatera Barat",
-  "Sumatera Selatan",
-  "Sumatera Utara",
-];
 
 type KomoditasData = {
   [tanggal: string]: {

@@ -1,19 +1,40 @@
-annotated-types==0.7.0
-anyio==4.9.0
-click==8.1.8
-colorama==0.4.6
-fastapi==0.115.12
-h11==0.16.0
-httptools==0.6.4
-idna==3.10
+# =========================
+# FastAPI Plant Disease Classifier
+# =========================
+
+# FastAPI & dependencies
+fastapi==0.115.1
+starlette==0.46.2
+uvicorn==0.34.2
 pydantic==2.11.4
 pydantic_core==2.33.2
 python-dotenv==1.1.0
-PyYAML==6.0.2
+
+# CORS
+httptools==0.6.4
+websockets==15.0.1
+anyio==4.9.0
 sniffio==1.3.1
-starlette==0.46.2
+h11==0.16.0
+click==8.1.8
+colorama==0.4.6
+watchfiles==1.0.5
 typing-inspection==0.4.0
 typing_extensions==4.13.2
-uvicorn==0.34.2
-watchfiles==1.0.5
-websockets==15.0.1
+annotated-types==0.7.0
+
+# Torch & vision
+torch==2.3.0
+torchvision==0.18.0
+
+# Image processing
+Pillow==10.3.0
+
+# Data handling
+pandas==2.2.2
+PyYAML==6.0.2
+
+# Pathlib (sudah built-in Python >=3.4, tidak perlu install)
+# re (built-in)
+
+# =========================

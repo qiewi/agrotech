@@ -1,7 +1,7 @@
 "use client"
 
-import { LoginHeader } from "./components/LoginHeader"
-import { LoginForm } from "./components/LoginForm"
+import { LoginHeader } from "@/components/pages/login/LoginHeader"
+import { LoginForm } from "@/components/pages/login/LoginForm"
 
 export const loginText = {
   greeting: "Halo!",

@@ -1,5 +1,5 @@
 import { Send } from "lucide-react"
-import { useRef, useEffect} from "react"
+import { useRef, useEffect } from "react"
 
 interface ChatInputProps {
   input: string
@@ -9,13 +9,12 @@ interface ChatInputProps {
 
 export default function ChatInput({ input, setInput, handleSend }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-  
+
   useEffect(() => {
     if (input === "" && textareaRef.current) {
       textareaRef.current.style.height = "40px"
     }
   }, [input])
-  
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value)

@@ -22,6 +22,8 @@ interface DiagnosisDetailsProps {
 }
 
 export function DiagnosisDetails({ result, onBack }: DiagnosisDetailsProps) {
+  console.log("DiagnosisDetails received image URL:", result.imageUrl);
+  
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg px-2">
@@ -40,12 +42,22 @@ export function DiagnosisDetails({ result, onBack }: DiagnosisDetailsProps) {
         {/* Plant image */}
         <div className="px-4">
           <div className="relative w-full h-48 rounded-xl overflow-hidden">
-            <Image
-              src={result.imageUrl || "/placeholder.svg"}
-              alt="Diagnosed plant"
-              fill
-              className="object-cover rounded-xl"
-            />
+            {result.imageUrl && (result.imageUrl.startsWith('data:') || result.imageUrl.startsWith('blob:')) ? (
+              // For local uploaded images (data URLs or blob URLs)
+              <img
+                src={result.imageUrl}
+                alt="Diagnosed plant"
+                className="w-full h-full object-cover rounded-xl"
+              />
+            ) : (
+              // For normal images from your public directory or external URLs
+              <Image
+                src={result.imageUrl || "/placeholder.svg"}
+                alt="Diagnosed plant"
+                fill
+                className="object-cover rounded-xl"
+              />
+            )}
           </div>
         </div>
 

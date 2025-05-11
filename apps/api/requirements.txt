@@ -1,40 +1,54 @@
-# =========================
-# FastAPI Plant Disease Classifier
-# =========================
-
-# FastAPI & dependencies
-fastapi==0.115.1
+# Web Framework & Server
+fastapi==0.115.12
 starlette==0.46.2
 uvicorn==0.34.2
+websockets==15.0.1
+httptools==0.6.4
+h11==0.16.0
+
+# Data Processing & Scientific Computing
+numpy==2.2.5
+pandas==2.2.3
+networkx==3.4.2
+sympy==1.14.0
+mpmath==1.3.0
+
+# Machine Learning & Computer Vision
+torch==2.7.0
+torchvision==0.22.0
+pillow==11.2.1
+
+# Data Storage & File Handling
+fsspec==2025.3.2
+filelock==3.18.0
+python-multipart==0.0.20
+
+# Date & Time Handling
+python-dateutil==2.9.0.post0
+pytz==2025.2
+tzdata==2025.2
+
+# Type Checking & Validation
 pydantic==2.11.4
 pydantic_core==2.33.2
-python-dotenv==1.1.0
-
-# CORS
-httptools==0.6.4
-websockets==15.0.1
-anyio==4.9.0
-sniffio==1.3.1
-h11==0.16.0
-click==8.1.8
-colorama==0.4.6
-watchfiles==1.0.5
 typing-inspection==0.4.0
 typing_extensions==4.13.2
 annotated-types==0.7.0
 
-# Torch & vision
-torch==2.3.0
-torchvision==0.18.0
+# Utilities & Helpers
+click==8.1.8
+colorama==0.4.6
+idna==3.10
+six==1.17.0
+sniffio==1.3.1
+watchfiles==1.0.5
+anyio==4.9.0
 
-# Image processing
-Pillow==10.3.0
+# Template Engine
+Jinja2==3.1.6
+MarkupSafe==3.0.2
 
-# Data handling
-pandas==2.2.2
+# Configuration & Environment
+python-dotenv==1.1.0
 PyYAML==6.0.2
-
-# Pathlib (sudah built-in Python >=3.4, tidak perlu install)
-# re (built-in)
-
-# =========================
+setuptools==80.4.0

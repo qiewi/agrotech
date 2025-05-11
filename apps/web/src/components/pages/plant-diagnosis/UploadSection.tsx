@@ -36,18 +36,25 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
     if (file) {
       setIsUploading(true)
       setSelectedFile(file)
-      const imageUrl = URL.createObjectURL(file)
-      setSelectedImage(imageUrl)
-      setError(null)
-
-      setTimeout(() => {
-        setIsUploading(false)
-        setIsIdentifying(true)
-        startScanAnimation()
-        simulateIdentification(file, imageUrl)
-      }, 1000)
+      
+      // Convert to data URL instead of object URL
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const dataUrl = e.target?.result as string
+        setSelectedImage(dataUrl)
+        
+        // Only proceed after image is loaded
+        setError(null)
+        setTimeout(() => {
+          setIsUploading(false)
+          setIsIdentifying(true)
+          startScanAnimation()
+          simulateIdentification(file, dataUrl)
+        }, 1000)
+      }
+      reader.readAsDataURL(file)
     }
-  }
+  }  
 
   const startScanAnimation = () => {
     setScanPosition(20)
@@ -60,7 +67,7 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
     }, 100)
   }
 
-  const simulateIdentification = async (file: File, imageUrl: string) => {
+  const simulateIdentification = async (file: File, imageDataUrl: string) => {
     setProgress(0)
     let localProgress = 0
     const interval = setInterval(() => {
@@ -75,14 +82,18 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
       const res = await predictPlantDisease(file)
       // Gunakan mapper
       let result = mapDiagnosisLabel(res.class)
+      
+      // Make sure we use the data URL directly
       result = {
         ...result,
-        imageUrl: imageUrl || result.imageUrl,
+        imageUrl: imageDataUrl, // Use the data URL directly
         confidence: res.confidence,
       }
+      
       setTimeout(() => {
         if (scanRef.current) clearInterval(scanRef.current)
         setIsIdentifying(false)
+        console.log("Setting diagnosis with image URL:", imageDataUrl);
         setDiagnosisResult(result)
         setShowResults(true)
       }, 500)
@@ -110,9 +121,15 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
     }
   }, [])
 
-  if (showResults && selectedImage && diagnosisResult) {
+  if (showResults && diagnosisResult) {
     return (
-      <DiagnosisDetails result={diagnosisResult} onBack={resetUpload} />
+      <DiagnosisDetails 
+        result={{
+          ...diagnosisResult,
+          imageUrl: selectedImage || diagnosisResult.imageUrl
+        }} 
+        onBack={resetUpload} 
+      />
     )
   }
 
@@ -121,7 +138,20 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
       {selectedImage && isIdentifying ? (
         <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
           <div className="relative w-full h-full">
-            <Image src={selectedImage || "/placeholder.svg"} alt="Uploaded plant image" fill className="object-cover" />
+            {selectedImage.startsWith('data:') ? (
+              <img 
+                src={selectedImage} 
+                alt="Uploaded plant image" 
+                className="w-full h-full object-cover" 
+              />
+            ) : (
+              <Image 
+                src={selectedImage || "/placeholder.svg"} 
+                alt="Uploaded plant image" 
+                fill 
+                className="object-cover" 
+              />
+            )}
             {/* Corner brackets */}
             <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-white"></div>
             <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white"></div>

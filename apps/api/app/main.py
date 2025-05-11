@@ -266,7 +266,11 @@ class PlantDiseaseClassifier(nn.Module):
 # -------------------------
 
 NUM_CLASSES = len(LABEL_MAP)
-MODEL_PATH = "best_model_mobilenetv2.pth"
+# Get the directory where main.py is located
+SCRIPT_DIR = Path(__file__).resolve().parent
+MODEL_FILENAME = 'best_model_mobilenetv2.pth'
+MODEL_PATH = SCRIPT_DIR / MODEL_FILENAME
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = PlantDiseaseClassifier(num_classes=NUM_CLASSES, pretrained=False)

@@ -75,8 +75,8 @@ export default function Navbar() {
               <div
                 className={`p-2 rounded-md transition ${
                   item.active
-                    ? "bg-green-700"
-                    : "bg-greenish group-hover:bg-green-700"
+                    ? "bg-greenish/90"
+                    : "bg-greenish group-hover:bg-greenish/90"
                 }`}
               >
                 <div className="text-white">{item.icon}</div>

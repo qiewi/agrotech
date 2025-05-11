@@ -124,20 +124,34 @@ def get_pangan(komoditas: str):
 # Sensor Data Endpoints
 # =========================
 
+# Model data sensor dengan ID lahan
 class SensorData(BaseModel):
+    id: str
     temperature: float
     humidity: float
 
-data_store = []
+# Data disimpan per lahan (id)
+data_store = {}
 
 @app.post("/sensor")
 async def receive_sensor(data: SensorData):
-    data_store.append(data.dict())
+    # Simpan data terakhir per lahan
+    data_store[data.id] = {
+        "temperature": data.temperature,
+        "humidity": data.humidity
+    }
     return {"message": "Data received"}
 
 @app.get("/sensor")
-async def get_sensor():
-    return data_store[-1] if data_store else {}
+async def get_all_sensor():
+    # Ambil semua data lahan
+    return data_store
+
+@app.get("/sensor/{lahan_id}")
+async def get_sensor_by_id(lahan_id: str):
+    # Ambil data lahan tertentu
+    return data_store.get(lahan_id, {})
+
 
 # =========================
 # Plant Disease Classifier

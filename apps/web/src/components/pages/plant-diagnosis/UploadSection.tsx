@@ -44,7 +44,7 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
         setIsUploading(false)
         setIsIdentifying(true)
         startScanAnimation()
-        simulateIdentification(file)
+        simulateIdentification(file, imageUrl)
       }, 1000)
     }
   }
@@ -60,7 +60,7 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
     }, 100)
   }
 
-  const simulateIdentification = async (file: File) => {
+  const simulateIdentification = async (file: File, imageUrl: string) => {
     setProgress(0)
     let localProgress = 0
     const interval = setInterval(() => {
@@ -77,7 +77,7 @@ export function UploadSection({ onResultsChange }: UploadSectionProps) {
       let result = mapDiagnosisLabel(res.class)
       result = {
         ...result,
-        imageUrl: selectedImage || result.imageUrl,
+        imageUrl: imageUrl || result.imageUrl,
         confidence: res.confidence,
       }
       setTimeout(() => {

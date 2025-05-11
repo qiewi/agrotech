@@ -21,8 +21,8 @@ export default function FoodPriceCard({
           <Image
             src={imageSrc}
             alt={imageAlt}
-            width={48}
-            height={48}
+            width={128}
+            height={128}
             className="object-contain"
           />
         </div>

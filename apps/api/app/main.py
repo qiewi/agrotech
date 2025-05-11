@@ -1,6 +1,6 @@
 # apps/api/app/main.py
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pathlib import Path
@@ -12,6 +12,9 @@ import torch.nn as nn
 import torchvision.models as models
 import torchvision.transforms as transforms
 import re
+import httpx
+import subprocess
+import os
 
 # =========================
 # FastAPI App Initialization
@@ -310,3 +313,69 @@ async def predict(file: UploadFile = File(...)):
         "class": class_name,
         "confidence": confidence
     })
+
+OLLAMA_URL = "http://localhost:11434"
+OLLAMA_MODEL = "qwen2.5:0.5b"
+PROMPT_TEMPLATE = """
+Kamu adalah AgroBot, asisten digital untuk petani Indonesia. Tugasmu adalah membantu petani kecil di Indonesia dengan memberikan jawaban yang singkat, praktis, dan mudah dipahami. Jawablah setiap pertanyaan dengan bahasa Indonesia yang sederhana dan ramah.
+
+Instruksi penting untuk AgroBot:
+- Jawablah hanya pertanyaan yang berkaitan dengan pertanian, seperti tanaman, hama, pupuk, cuaca, alat pertanian, dan masalah sehari-hari petani.
+- Jika pertanyaan di luar topik pertanian, jawab dengan sopan: "Maaf, saya hanya bisa membantu seputar pertanian."
+- Jangan mengarang jawaban jika tidak tahu. Jika tidak yakin, katakan: "Maaf, saya belum tahu pasti tentang hal itu."
+- Berikan solusi yang praktis dan bisa diterapkan oleh petani kecil, bukan teori yang rumit.
+- Gunakan bahasa Indonesia yang sederhana, jelas, dan mudah dipahami oleh petani di desa.
+- Jawaban harus singkat, langsung ke inti, dan tidak bertele-tele.
+- Selalu bersikap ramah dan membantu.
+
+Contoh:
+Pertanyaan: Bagaimana cara mengatasi hama wereng pada padi?
+Jawaban: Untuk mengatasi hama wereng, gunakan insektisida sesuai anjuran, jaga kebersihan lahan, dan tanam varietas padi yang tahan wereng.
+
+Pertanyaan: Apa itu Bitcoin?
+Jawaban: Maaf, saya hanya bisa membantu seputar pertanian.
+
+Pertanyaan: {user_message}
+Jawaban:
+"""
+
+class ChatRequest(BaseModel):
+    message: str
+
+class ChatResponse(BaseModel):
+    response: str
+
+def check_and_pull_model():
+    # Cek model sudah ada atau belum
+    try:
+        resp = httpx.get(f"{OLLAMA_URL}/api/tags")
+        resp.raise_for_status()
+        tags = resp.json().get("models", [])
+        if not any(m["name"].startswith(OLLAMA_MODEL) for m in tags):
+            print(f"Model {OLLAMA_MODEL} belum ada, melakukan pull...")
+            subprocess.run(["ollama", "pull", OLLAMA_MODEL], check=True)
+        else:
+            print(f"Model {OLLAMA_MODEL} sudah tersedia.")
+    except Exception as e:
+        print("Gagal cek/pull model:", e)
+
+@app.on_event("startup")
+def startup_event():
+    check_and_pull_model()
+
+@app.post("/chat", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    prompt = PROMPT_TEMPLATE.format(user_message=request.message)
+    payload = {
+        "model": OLLAMA_MODEL,
+        "prompt": prompt,
+        "stream": False
+    }
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(f"{OLLAMA_URL}/api/generate", json=payload, timeout=60)
+            resp.raise_for_status()
+            data = resp.json()
+            return ChatResponse(response=data.get("response", ""))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

@@ -3,7 +3,7 @@
 import { LoginHeader } from "@/components/pages/login/LoginHeader"
 import { LoginForm } from "@/components/pages/login/LoginForm"
 
-export const loginText = {
+const loginText = {
   greeting: "Halo!",
   instruction: "Silakan masuk",
   emailLabel: "Email",

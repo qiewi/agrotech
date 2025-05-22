@@ -51,6 +51,7 @@ export default function PlantDiagnosisPage() {
   const [error, setError] = useState<string | null>(null)
   const scanRef = useRef<NodeJS.Timeout | null>(null)
   const scanDirection = useRef(1)
+  
 
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,6 +151,15 @@ export default function PlantDiagnosisPage() {
     )
   }
 
+  // Handler untuk klik card penyakit
+  const handleDiseaseClick = (key: string) => {
+    const result = diagnosisData[key]
+    if (result) {
+      setDiagnosisResult(result)
+      setShowResults(true)
+    }
+  }
+
   // Default: Upload page (redesigned)
   return (
     <div className="w-full min-h-screen flex flex-col items-center bg-[#F8FAF9] pb-8">
@@ -170,9 +180,11 @@ export default function PlantDiagnosisPage() {
         <p className="text-gray-500 text-sm mb-2">Explore diseases that crops may suffer</p>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {cropDiseases.map((disease) => (
-            <div
-              key={disease.name}
-              className="min-w-[120px] bg-white rounded-xl shadow flex flex-col items-center"
+            <button
+              key={disease.key}
+              type="button"
+              onClick={() => handleDiseaseClick(disease.key)}
+              className="min-w-[120px] bg-white rounded-xl shadow flex flex-col items-center focus:ring-2 ring-green-400 transition"
             >
               <Image
                 src={disease.img ?? "/placeholder.png"}
@@ -182,7 +194,7 @@ export default function PlantDiagnosisPage() {
                 className="object-cover rounded-t-xl"
               />
               <span className="text-xs font-medium py-2">{disease.name}</span>
-            </div>
+            </button>
           ))}
         </div>
       </div>

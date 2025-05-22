@@ -5,6 +5,7 @@ import ChatHeader from "./components/ChatHeader"
 import MessageList from "./components/MessageList"
 import ChatInput from "./components/ChatInput"
 
+
 interface Message {
   sender: "user" | "bot"
   text: string

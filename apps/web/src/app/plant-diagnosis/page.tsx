@@ -11,7 +11,7 @@ import Image from "next/image"
 
 import { diagnosisData } from "@/lib/data/data-diagnosis"
 
-export const cropDiseases = [
+const cropDiseases = [
   {
     key: "tomato_late_blight",
     name: diagnosisData.tomato_late_blight.diseaseName,

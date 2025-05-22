@@ -1,97 +1,101 @@
 "use client"
 
-import { ArrowLeft, Lightbulb } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 export interface DiagnosisResult {
   diseaseName: string
+  latinName?: string
   category: string
   type: string
-  solutions: {
-    title: string
-    description: string
-  }[]
+  solutions: { title: string; description: string }[]
   imageUrl?: string
   confidence?: number
 }
 
-interface DiagnosisDetailsProps {
+export function DiagnosisDetails({
+  result,
+  onBack,
+}: {
   result: DiagnosisResult
   onBack: () => void
-}
-
-export function DiagnosisDetails({ result, onBack }: DiagnosisDetailsProps) {
-  console.log("DiagnosisDetails received image URL:", result.imageUrl);
-  
+}) {
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg px-2">
-        {/* Back button */}
-        <div className="py-4">
-          <Button
-            variant="ghost"
-            className="flex items-center text-black p-0 hover:bg-transparent"
-            onClick={onBack}
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            <span>Kembali</span>
-          </Button>
-        </div>
+    <div className="w-full min-h-screen bg-[#F8FAF9] flex flex-col items-center">
+      {/* Back & Title */}
+      <div className="w-full flex items-center px-4 pt-6 pb-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-full bg-white shadow mr-2"
+          onClick={onBack}
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <h1 className="flex-1 text-center text-xl font-bold">Diagnosis</h1>
+        <div className="w-10" /> {/* Spacer */}
+      </div>
 
-        {/* Plant image */}
-        <div className="px-4">
-          <div className="relative w-full h-48 rounded-xl overflow-hidden">
-            {result.imageUrl && (result.imageUrl.startsWith('data:') || result.imageUrl.startsWith('blob:')) ? (
-              // For local uploaded images (data URLs or blob URLs)
-              <img
-                src={result.imageUrl}
-                alt="Diagnosed plant"
-                className="w-full h-full object-cover rounded-xl"
-              />
-            ) : (
-              // For normal images from your public directory or external URLs
-              <Image
-                src={result.imageUrl || "/placeholder.svg"}
-                alt="Diagnosed plant"
-                fill
-                className="object-cover rounded-xl"
-              />
+      {/* Image with overlay title */}
+      <div className="w-full relative">
+        <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
+          {result.imageUrl && (result.imageUrl.startsWith('data:') || result.imageUrl.startsWith('blob:')) ? (
+            <img
+              src={result.imageUrl}
+              alt="Diagnosed plant"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={result.imageUrl || "/placeholder.svg"}
+              alt="Diagnosed plant"
+              fill
+              className="object-cover"
+            />
+          )}
+          {/* Overlay text */}
+          <div className="absolute bottom-4 left-4 text-white drop-shadow-lg">
+            <h2 className="text-2xl font-bold">{result.diseaseName}</h2>
+            {result.latinName && (
+              <p className="text-sm italic">{result.latinName}</p>
             )}
           </div>
         </div>
+      </div>
 
-        {/* Diagnosis results */}
-        <div className="p-4">
-          <h2 className="text-3xl font-bold text-greenish mb-4">{result.diseaseName}</h2>
-          <div className="flex justify-between mb-4">
-            <div>
-              <p className="text-gray-500 text-sm">Kategori:</p>
-              <p className="font-medium">{result.category}</p>
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Tipe:</p>
-              <p className="font-medium">{result.type}</p>
-            </div>
-          </div>
-          <div className="mt-6 mb-2">
-            <h3 className="text-2xl font-bold text-greenish flex items-center">
-              Solusi <Lightbulb className="h-5 w-5 ml-2 text-yellow-400" />
-            </h3>
-          </div>
-          {result.solutions.map((solution, index) => (
-            <div key={index} className="mb-6">
-              <h4 className="font-bold mb-2">{solution.title}</h4>
-              <p className="text-sm text-gray-700">{solution.description}</p>
-            </div>
-          ))}
-          {result.confidence !== undefined && (
-            <div className="mt-4 text-sm text-gray-500">
-              Confidence: {(result.confidence * 100).toFixed(2)}%
-            </div>
-          )}
+      {/* Category & Type */}
+      <div className="w-full flex justify-between px-6 mt-4 mb-2">
+        <div>
+          <p className="text-gray-500 text-xs font-medium">Category:</p>
+          <p className="font-semibold text-sm">{result.category}</p>
+        </div>
+        <div>
+          <p className="text-gray-500 text-xs font-medium">Type:</p>
+          <p className="font-semibold text-sm">{result.type}</p>
         </div>
       </div>
+
+      {/* How to Handle */}
+      <div className="w-full px-4 mt-2">
+        <div className="bg-[#F3F4F6] rounded-xl p-4">
+          <h3 className="text-lg font-bold mb-3">How to Handle</h3>
+          <ol className="list-decimal list-inside text-gray-700 text-sm space-y-2">
+            {result.solutions.map((solution, idx) => (
+              <li key={idx}>{solution.description}</li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      {/* Confidence (optional) */}
+      {result.confidence !== undefined && (
+        <div className="w-full px-4 mt-4">
+          <div className="text-center text-xs text-gray-400">
+            Confidence: {(result.confidence * 100).toFixed(2)}%
+          </div>
+        </div>
+      )}
     </div>
   )
 }

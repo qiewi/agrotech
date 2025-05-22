@@ -23,10 +23,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`min-h-screen w-full flex justify-center bg-white ${dmSans.className}`}>
-        <AuthProvider>{children}</AuthProvider>
+      <body
+        className={`min-h-screen w-full flex justify-center bg-white ${dmSans.className}`}
+      >
+        <AuthProvider>
+          <main className="w-full max-w-[390px] flex flex-col items-center pb-20">
+            {children}
+          </main>
+        </AuthProvider>
         <Navbar />
       </body>
     </html>
-  )
+  );
 }
+

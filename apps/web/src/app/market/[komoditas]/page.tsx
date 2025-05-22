@@ -8,7 +8,6 @@ import { useParams } from "next/navigation";
 import { PROVINSI } from "@/lib/data/data-provinsi";
 import { DESKRIPSI } from "@/lib/data/komoditas-deskripsi";
 
-
 type KomoditasData = {
   [tanggal: string]: {
     [provinsi: string]: number | null;
@@ -181,53 +180,54 @@ export default function DetailPage() {
   }, [chartData, months]);
 
   return (
-    <div className="max-w-md mx-auto bg-gray-50 min-h-screen flex flex-col">
+    <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
 
       {/* Header with back button */}
-      <div className="bg-white p-4 flex items-center">
+      <div className="flex items-center gap-2 p-4">
         <Link href="/market" className="flex items-center text-black">
-          <ArrowLeft size={20} />
-          <span className="ml-2 font-medium">Kembali</span>
+          <ArrowLeft size={24} />
         </Link>
+        <span className="text-lg font-semibold ml-2 ">Details</span>
       </div>
 
-      {/* Title, image, deskripsi */}
-      <div className="p-4 flex items-center gap-4">
-        <div className="flex items-center justify-center bg-white rounded-lg">
-          <Image
-            src={imageSrc}
-            alt={komoditas}
-            width={80}
-            height={80}
-            className="object-contain"
-          />
+      {/* Gambar besar dengan judul overlay */}
+      <div className="relative w-full h-40 mb-2">
+        <Image
+          src={imageSrc}
+          alt={komoditas}
+          fill
+          className="object-cover "
+          priority
+        />
+        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/40 to-transparent ">
+          <h1 className="text-2xl md:text-3xl font-bold text-white p-4 drop-shadow">
+            {komoditas.replace(/\b\w/g, (c) => c.toUpperCase())}
+          </h1>
         </div>
-        <h1 className="text-3xl font-bold text-green-700 capitalize">
-          {komoditas}
-        </h1>
       </div>
-      <div className="px-4 pb-2 text-gray-700 text-sm">{deskripsi}</div>
 
-      <div className="border-t border-gray-200 my-2"></div>
+      {/* Deskripsi */}
+      <div className="px-4 pb-2 text-gray-700 text-base">{deskripsi}</div>
 
-      {/* AVG Nasional */}
-      <div className="px-4 py-2">
-        <div className="flex">
-          <div className="flex-1">
-            <h2 className="text-xl font-semibold text-green-700 mb-2">AVG</h2>
-            <div className="space-y-1 text-sm">
-              <div className="grid grid-cols-2">
-                <span>Nasional</span>
-                <span>{avgNasional}</span>
-              </div>
-            </div>
+      {/* Price Detail */}
+      <div className="px-4 pt-4">
+        <h2 className="text-lg font-bold text-gray-900 mb-1">Price Detail</h2>
+        <p className="text-gray-500 mb-3 text-sm">Details of the crop price</p>
+        <div className="flex flex-col gap-2">
+          {/* Hapus HET Nasional, hanya rata-rata nasional */}
+          <div className="flex justify-between items-center border rounded-lg px-4 py-2 font-semibold text-base">
+            <span>Rata-Rata Nasional</span>
+            <span className="text-green-700">{avgNasional}</span>
           </div>
         </div>
       </div>
 
-      {/* Grafik */}
-      <div className="px-4 py-2">
-        <h2 className="text-xl font-semibold text-green-700 mb-4">Grafik Harga</h2>
+      {/* Price Graph */}
+      <div className="px-4 pt-6">
+        <h2 className="text-lg font-bold text-gray-900 mb-1">Price Graph</h2>
+        <p className="text-gray-500 mb-3 text-sm">
+          Check how the price fluctuates
+        </p>
         {/* Filter */}
         <div className="flex gap-2 mb-2">
           <select
@@ -254,7 +254,7 @@ export default function DetailPage() {
           </select>
         </div>
         {/* Chart */}
-        <div className="bg-white p-2 rounded">
+        <div className="bg-white p-2 rounded shadow">
           <canvas ref={canvasRef} className="w-full h-[150px]"></canvas>
         </div>
       </div>

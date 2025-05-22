@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import Image from "next/image"
 import type { DiagnosisResult } from "./DiagnosisDetails"
 import { DiagnosisDetails } from "./DiagnosisDetails"
-import { predictPlantDisease } from "@/lib/api/plant-diagnose"
+import { predictPlantDisease } from "@/app/api/plant-diagnose"
 import { mapDiagnosisLabel } from "@/lib/data/diagnosis-mapper"
 
 interface UploadSectionProps {

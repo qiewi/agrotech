@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { DM_Sans } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
+import { AuthProvider } from "./context/AuthContext"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -23,10 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`min-h-screen w-full flex justify-center bg-white ${dmSans.className}`}>
-        <main className="w-full max-w-[390px] flex flex-col items-center">
-          {children}
-          <Navbar />
-        </main>
+        <AuthProvider>{children}</AuthProvider>
+        <Navbar />
       </body>
     </html>
   )

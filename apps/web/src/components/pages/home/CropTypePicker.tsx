@@ -4,18 +4,18 @@ import { useState } from "react";
 import { X, Check } from "lucide-react";
 
 const crops = [
-  { id: "tomato", name: "Tomato", emoji: "🍅" },
-  { id: "eggplant", name: "Eggplant", emoji: "🍆" },
-  { id: "corn", name: "Corn", emoji: "🌽" },
-  { id: "potato", name: "Potato", emoji: "🥔" },
-  { id: "chili", name: "Red Chilli", emoji: "🌶️" },
-  { id: "bellpepper", name: "Bell Pepper", emoji: "🫑" },
-  { id: "cucumber", name: "Cucumber", emoji: "🥒" },
-  { id: "ginger", name: "Ginger", emoji: "🫚" },
-  { id: "broccoli", name: "Broccoli", emoji: "🥦" },
-  { id: "peas", name: "Peas", emoji: "🫛" },
-  { id: "lettuce", name: "Lettuce", emoji: "🥬" },
-  { id: "beans", name: "Beans", emoji: "🫘" },
+  { id: "Tomato", name: "Tomato", emoji: "🍅" },
+  { id: "Eggplant", name: "Eggplant", emoji: "🍆" },
+  { id: "Corn", name: "Corn", emoji: "🌽" },
+  { id: "Potato", name: "Potato", emoji: "🥔" },
+  { id: "Chili", name: "Red Chilli", emoji: "🌶️" },
+  { id: "Bellpepper", name: "Bell Pepper", emoji: "🫑" },
+  { id: "Cucumber", name: "Cucumber", emoji: "🥒" },
+  { id: "Ginger", name: "Ginger", emoji: "🫚" },
+  { id: "Broccoli", name: "Broccoli", emoji: "🥦" },
+  { id: "Peas", name: "Peas", emoji: "🫛" },
+  { id: "Lettuce", name: "Lettuce", emoji: "🥬" },
+  { id: "Beans", name: "Beans", emoji: "🫘" },
 ];
 
 interface CropTypePickerModalProps {

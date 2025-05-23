@@ -152,7 +152,6 @@ async def get_sensor_by_id(lahan_id: str):
     # Ambil data lahan tertentu
     return data_store.get(lahan_id, {})
 
-
 # =========================
 # Plant Disease Classifier
 # =========================

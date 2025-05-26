@@ -23,9 +23,8 @@ const WeatherCard = ({
       }}
     >
       <div className="flex flex-col items-center mb-6 opacity-100">
-        <div className="relative mb-2">
-          <Cloud className="text-gray-200 w-16 h-16" />
-          <Sun className="text-yellow-400 w-6 h-6 absolute -top-1 -left-1" />
+        <div className="relative mb-2 text-6xl pb-2">
+          ⛅
         </div>
         <h1 className="text-4xl text-black">{temperature}°C</h1>
         <p className="text-black text-sm mt-1">{condition}</p>

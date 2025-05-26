@@ -1,91 +1,93 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { Bell, MapPin, Plus } from "lucide-react";
-import WeatherCard from "@/components/pages/home/WeatherCard";
-import AiInsightCard from "@/components/pages/home/AiInsightCard";
-import FieldCard from "@/components/pages/home/FieldCard";
-import { useEffect, useState, useRef } from "react";
-import { useAuth } from "@/app/context/AuthContext";
+import Link from "next/link"
+import Image from "next/image"
+import { Bell, MapPin, Plus } from "lucide-react"
+import WeatherCard from "@/components/pages/home/WeatherCard"
+import AiInsightCard from "@/components/pages/home/AiInsightCard"
+import FieldCard from "@/components/pages/home/FieldCard"
+import { useEffect, useState, useRef } from "react"
+import { useAuth } from "@/app/context/AuthContext"
 
 type Field = {
-  field_id: number;
-  field_code?: string;
-  field_name: string;
-  image_url?: string;
-  location: string;
-  crop_type?: string;
-  area_size?: number;
-};
+  field_id: number
+  field_code?: string
+  field_name: string
+  image_url?: string
+  location: string
+  crop_type?: string
+  area_size?: number
+}
 
 type SensorData = {
-  temperature?: number;
-  humidity?: number;
-};
+  temperature?: number
+  humidity?: number
+}
 
 type AllSensorData = {
-  [id: string]: SensorData;
-};
+  [id: string]: SensorData
+}
 
 export default function Home() {
-  const { user } = useAuth();
-  const [fields, setFields] = useState<Field[]>([]);
-  const [allSensors, setAllSensors] = useState<AllSensorData>({});
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const { user } = useAuth()
+  const [fields, setFields] = useState<Field[]>([])
+  const [allSensors, setAllSensors] = useState<AllSensorData>({})
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   // Fetch fields from DB
   useEffect(() => {
-    if (!user) return;
+    if (!user) return
     fetch(`/api/fields?user_id=${user.user_id}`)
       .then((res) => res.json())
-      .then((data) => setFields(data.fields || []));
-  }, [user]);
+      .then((data) => setFields(data.fields || []))
+  }, [user])
 
   // Fetch sensor data
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true
     const fetchData = async () => {
       try {
-        const res = await fetch("http://192.168.31.235:8000/sensor");
-        if (!res.ok) throw new Error("Gagal fetch data sensor");
-        const data: AllSensorData = await res.json();
-        if (isMounted) setAllSensors(data);
+        const res = await fetch("http://192.168.31.235:8000/sensor")
+        if (!res.ok) throw new Error("Gagal fetch data sensor")
+        const data: AllSensorData = await res.json()
+        if (isMounted) setAllSensors(data)
       } catch (err) {
-        if (isMounted) setAllSensors({});
+        if (isMounted) setAllSensors({})
       }
-    };
-    fetchData();
-    intervalRef.current = setInterval(fetchData, 5000);
+    }
+    fetchData()
+    intervalRef.current = setInterval(fetchData, 5000)
     return () => {
-      isMounted = false;
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
+      isMounted = false
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [])
 
   // Gabungkan data field dari DB dengan data sensor dari FastAPI
   const fieldsWithSensor = fields.map((field) => {
-    const sensor = field.field_code
-      ? allSensors[field.field_code]
-      : undefined;
+    const sensor = field.field_code ? allSensors[field.field_code] : undefined
     return {
       ...field,
       temperature: sensor?.temperature ?? 0,
       humidity: sensor?.humidity ?? 0,
       imageUrl: field.image_url || "/images/lahan_default.jpg",
-    };
-  });
+    }
+  })
 
   return (
-  <div className="flex flex-col w-full pb-20 px-2 bg-white">
-        {/* Header */}
+    <div className="flex flex-col w-full pb-20 px-2 bg-white">
+      {/* Header */}
       <header className="p-6 flex justify-between items-center">
-        <div className="flex items-center">
-          <MapPin className="h-5 w-5 text-green-600 mr-1" />
-          <span className="text-lg font-semibold text-green-700">Agrotech</span>
+        <div className="flex items-center gap-3">
+          <Image src="/logo/agrotech.svg" alt="Agrotech Logo" width={32} height={32} className="w-8 h-8" />
+          <span className="text-xl font-semibold text-gray-800">Agrotech</span>
         </div>
-        <Link href="/notifications">
-          <Bell className="w-5 h-5 text-gray-700" />
-        </Link>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center bg-gray-100 px-3 py-1.5 rounded-full">
+            <MapPin className="h-4 w-4 text-gray-600 mr-1" />
+            <span className="text-sm font-medium text-gray-700">Jatinangor</span>
+          </div>
+        </div>  
       </header>
 
       {/* Main Content */}
@@ -135,7 +137,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
     </div>
-  );
+  )
 }

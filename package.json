@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev:web": "pnpm --filter web dev",
-    "dev:api": "cd apps/api && source venv/bin/activate && uvicorn app.main:app --reload --port 8000",
+    "dev:api": "cd apps/api && .\\venv\\Scripts\\activate && uvicorn app.main:app --reload --port 8000",
     "dev": "concurrently \"pnpm run dev:web\" \"pnpm run dev:api\""
   },
   "keywords": [],

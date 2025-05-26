@@ -109,11 +109,6 @@ export default function Login() {
             Sign In
           </button>
         </form>
-
-        {/* Bottom Indicator */}
-        <div className="mt-auto mb-8 flex justify-center">
-          <div className="w-12 h-1 bg-gray-900 rounded-full"></div>
-        </div>
       </div>
     </main>
   )

@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Leaf, Link } from "lucide-react"
-import BottomNav from "@/components/layout/Navbar"
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -76,9 +75,6 @@ export default function Home() {
         >
           Sign In
         </a>
-
-        {/* Footer */}
-        <BottomNav />
         
       </div>
     </main>

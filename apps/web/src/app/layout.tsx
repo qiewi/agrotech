@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { DM_Sans } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/components/layout/Navbar"
+import NavbarWrapper from "@/components/layout/NavbarWrapper"
 import { AuthProvider } from "./context/AuthContext"
 
 const dmSans = DM_Sans({
@@ -27,11 +27,11 @@ export default function RootLayout({
         className={`min-h-screen w-full flex justify-center bg-white ${dmSans.className}`}
       >
         <AuthProvider>
-          <main className="w-full max-w-[390px] flex flex-col items-center pb-20">
+          <main className="w-full max-w-[390px] flex flex-col items-center">
             {children}
           </main>
         </AuthProvider>
-        <Navbar />
+        <NavbarWrapper />
       </body>
     </html>
   );

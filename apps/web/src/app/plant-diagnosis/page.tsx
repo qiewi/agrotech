@@ -196,34 +196,28 @@ export default function PlantDiagnosisPage() {
         <p className="text-gray-500 text-sm mb-3">
           Diagnose your plant disease and the solution
         </p>
-        <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
+        <div className="bg-[#EEEEEE] rounded-xl p-4 py-6 flex flex-col items-center">
           {/* Stepper */}
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center gap-4 mb-4 text-center">
             <div className="flex flex-col items-center">
-              <div className="w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">📷</span>
-              </div>
+              <Image src="/emojis/leaves.jpg" alt="Take a Picture" width={60} height={60} />
               <span className="text-xs mt-1 text-gray-600">Take a Picture</span>
             </div>
-            <span className="text-2xl text-gray-400">{'>'}</span>
+            <span className="text-6xl text-gray-400">{'>'}</span>
             <div className="flex flex-col items-center">
-              <div className="w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">📱</span>
-              </div>
+              <Image src="/emojis/phone.jpg" alt="See Diagnosis" width={60} height={60} />
               <span className="text-xs mt-1 text-gray-600">See Diagnosis</span>
             </div>
-            <span className="text-2xl text-gray-400">{'>'}</span>
+            <span className="text-6xl text-gray-400">{'>'}</span>
             <div className="flex flex-col items-center">
-              <div className="w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">💡</span>
-              </div>
+              <Image src="/emojis/doctor.jpg" alt="Get Solutions" width={60} height={60} />
               <span className="text-xs mt-1 text-gray-600">Get Solutions</span>
             </div>
           </div>
           {/* Buttons */}
           <div className="flex flex-col gap-3 w-full">
             <Button
-              className="bg-green-700 hover:bg-green-800 text-white w-full flex items-center gap-2 py-4 rounded-xl text-base font-semibold shadow"
+              className="bg-greenish hover:opacity-90 text-white w-full flex items-center gap-2 py-6 rounded-xl text-base shadow-lg"
               onClick={() => document.getElementById("image-upload")?.click()}
               disabled={isUploading}
             >
@@ -231,7 +225,7 @@ export default function PlantDiagnosisPage() {
               Take a Picture
             </Button>
             <Button
-              className="bg-yellow-400 hover:bg-yellow-500 text-white w-full flex items-center gap-2 py-4 rounded-xl text-base font-semibold shadow"
+              className="bg-[#EABF31] hover:opacity-90 text-white w-full flex items-center gap-2 py-6 rounded-xl text-base shadow-lg"
               onClick={() => document.getElementById("image-upload")?.click()}
               disabled={isUploading}
             >

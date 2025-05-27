@@ -58,65 +58,57 @@ export default function FertilizationCalculator({ onClose }: Props) {
 
       <div className="space-y-6">
         {/* NPK Values Section */}
-        <div>
+        <div className="border border-gray-200 rounded-xl p-4">
           <p className="text-sm font-medium mb-3">Add NPK Values</p>
-          <div className="bg-gray-100 rounded-lg p-4">
-            <div className="grid grid-cols-3 gap-4">
-              {/* N Input */}
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-greenish rounded-sm flex items-center justify-center text-white font-medium text-sm">
-                    N
-                  </div>
-                  <div className="flex-1 bg-white rounded-md">
-                    <input
-                      type="number"
-                      value={npkValues.N === 0 ? "" : npkValues.N}
-                      onChange={(e) => handleNPKChange("N", e.target.value)}
-                      className="w-full bg-transparent outline-none text-lg font-medium text-center"
-                      placeholder="0"
-                      min="0"
-                    />
-                  </div>
-                </div>
+          <div className="flex gap-2">
+            {/* N Input */}
+            <div className="flex-1 flex items-center gap-1">
+              <div className="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center text-white font-semibold text-lg">
+                N
               </div>
-
-              {/* P Input */}
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-greenish rounded-sm flex items-center justify-center text-white font-medium text-sm">
-                    P
-                  </div>
-                  <div className="flex-1 bg-white rounded-md">
-                    <input
-                      type="number"
-                      value={npkValues.P === 0 ? "" : npkValues.P}
-                      onChange={(e) => handleNPKChange("P", e.target.value)}
-                      className="w-full bg-transparent outline-none text-lg font-medium text-center"
-                      placeholder="0"
-                      min="0"
-                    />
-                  </div>
-                </div>
+              <div className="flex-1 bg-gray-100 rounded-lg min-w-[45px]">
+                <input
+                  type="number"
+                  value={npkValues.N === 0 ? "" : npkValues.N}
+                  onChange={(e) => handleNPKChange("N", e.target.value)}
+                  className="w-full h-10 bg-transparent outline-none text-lg font-medium text-center px-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  placeholder="0"
+                  min="0"
+                />
               </div>
+            </div>
 
-              {/* K Input */}
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-greenish rounded-sm flex items-center justify-center text-white font-medium text-sm">
-                    K
-                  </div>
-                  <div className="flex-1 bg-white rounded-md">
-                    <input
-                      type="number"
-                      value={npkValues.K === 0 ? "" : npkValues.K}
-                      onChange={(e) => handleNPKChange("K", e.target.value)}
-                      className="w-full bg-transparent outline-none text-lg font-medium text-center"
-                      placeholder="0"
-                      min="0"
-                    />
-                  </div>
-                </div>
+            {/* P Input */}
+            <div className="flex-1 flex items-center gap-1">
+              <div className="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center text-white font-semibold text-lg">
+                P
+              </div>
+              <div className="flex-1 bg-gray-100 rounded-lg min-w-[45px]">
+                <input
+                  type="number"
+                  value={npkValues.P === 0 ? "" : npkValues.P}
+                  onChange={(e) => handleNPKChange("P", e.target.value)}
+                  className="w-full h-10 bg-transparent outline-none text-lg font-medium text-center px-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  placeholder="0"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            {/* K Input */}
+            <div className="flex-1 flex items-center gap-1">
+              <div className="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center text-white font-semibold text-lg">
+                K
+              </div>
+              <div className="flex-1 bg-gray-100 rounded-lg min-w-[45px]">
+                <input
+                  type="number"
+                  value={npkValues.K === 0 ? "" : npkValues.K}
+                  onChange={(e) => handleNPKChange("K", e.target.value)}
+                  className="w-full h-10 bg-transparent outline-none text-lg font-medium text-center px-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  placeholder="0"
+                  min="0"
+                />
               </div>
             </div>
           </div>

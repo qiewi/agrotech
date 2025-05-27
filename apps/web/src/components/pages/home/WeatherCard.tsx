@@ -20,7 +20,7 @@ const WeatherCard = ({
     <div
       className="w-full rounded-xl p-5 bg-opacity-60"
       style={{
-        background: "linear-gradient(180deg, #FFFFFF 0%, #EEEEEE 100%)"
+        background: "linear-gradient(180deg, rgba(255,255,255,0.59) 0%, rgba(238,238,238,0.59) 100%)"
       }}
     >
       <div className="flex flex-col items-center mb-6 opacity-100">

@@ -10,13 +10,13 @@ export default function Home() {
   const slides = [
     {
       title: "Farm Smarter",
-      image: "/emojis/farm.jpg" as string,
+      image: "/emojis/farmer.png" as string,
       description: "Your One and Only Crop Monitoring System",
       subDescription: "Integrated with IoT and AI System",
     },
     {
       title: "Monitor Quicker",
-      image: "/emojis/leaves1.jpg" as string,
+      image: "/emojis/leaves.png" as string,
       description: "Your One and Only Crop Monitoring System",
       subDescription: "Integrated with IoT and AI System",
     },
@@ -38,29 +38,29 @@ export default function Home() {
         <div className="flex-1 flex items-center justify-center">
           {activeSlide === 0 ? (
             <div className="text-center">
-              <div className="mb-6 flex justify-center">
+              <div className="mb-2 flex justify-center">
                 <Image
                   src={slides[0].image}
                   alt="Farm"
-                  width={160}
-                  height={160}
+                  width={240}
+                  height={240}
                   className="object-contain"
                 />
               </div>
-              <h2 className="text-2xl font-semibold mb-2">{slides[0].title}</h2>
+              <h2 className="text-2xl mb-2">{slides[0].title}</h2>
             </div>
           ) : (
             <div className="text-center">
-              <div className="mb-6 flex justify-center">
+              <div className="mb-2 flex justify-center">
                 <Image
                   src={slides[1].image}
                   alt="Leaves"
-                  width={160}
-                  height={160}
+                  width={240}
+                  height={240}
                   className="object-contain"
                 />
               </div>
-              <h2 className="text-2xl font-semibold mb-2">{slides[1].title}</h2>
+              <h2 className="text-2xl mb-2">{slides[1].title}</h2>
             </div>
           )}
         </div>

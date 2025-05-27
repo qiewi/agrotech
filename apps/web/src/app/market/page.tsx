@@ -35,7 +35,7 @@ export default function FoodPriceInfo() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://0.0.0.0:8000/api/pangan")
+    fetch("http://localhost:8000/api/pangan")
       .then((res) => res.json())
       .then((json) => {
         setData(json);

@@ -63,7 +63,10 @@ export default function ProfilePage() {
 
       {/* Profile Content */}
       <main className="flex-1 px-4 pb-16 mt-2">
-        <div className="bg-gray-50 rounded-xl p-4 shadow-sm max-w-md mx-auto">
+        <div className="rounded-xl p-4 max-w-md mx-auto"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,255,255,0.59) 0%, rgba(238,238,238,0.59) 100%)"
+        }}>
           {/* Profile Picture */}
           <div className="flex justify-center mb-2">
             <img
@@ -98,7 +101,7 @@ export default function ProfilePage() {
           {/* Change Password Button */}
           <button
             onClick={handleChangePassword}
-            className="w-full flex items-center justify-center bg-green-700 text-white py-3 rounded-lg text-sm mt-2"
+            className="w-full flex items-center justify-center bg-greenish text-white py-3 rounded-lg text-sm mt-2"
           >
             <Lock className="h-4 w-4 mr-2" />
             <span className="font-medium">Change Password</span>

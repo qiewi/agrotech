@@ -192,17 +192,17 @@ export default function PlantDiagnosisPage() {
           {/* Stepper */}
           <div className="flex items-center justify-center gap-4 mb-4 text-center">
             <div className="flex flex-col items-center">
-              <Image src="/emojis/leaves.jpg" alt="Take a Picture" width={60} height={60} />
+              <Image src="/emojis/monitor.png" alt="Take a Picture" width={60} height={60} />
               <span className="text-xs mt-1 text-gray-600">Take a Picture</span>
             </div>
             <span className="text-6xl text-gray-400">{'>'}</span>
             <div className="flex flex-col items-center">
-              <Image src="/emojis/phone.jpg" alt="See Diagnosis" width={60} height={60} />
+              <Image src="/emojis/phone.png" alt="See Diagnosis" width={60} height={60} />
               <span className="text-xs mt-1 text-gray-600">See Diagnosis</span>
             </div>
             <span className="text-6xl text-gray-400">{'>'}</span>
             <div className="flex flex-col items-center">
-              <Image src="/emojis/doctor.jpg" alt="Get Solutions" width={60} height={60} />
+              <Image src="/emojis/doctor.png" alt="Get Solutions" width={70} height={70} />
               <span className="text-xs mt-1 text-gray-600">Get Solutions</span>
             </div>
           </div>

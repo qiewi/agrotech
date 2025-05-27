@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Leaf, Link } from "lucide-react"
+import Image from "next/image"
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -9,7 +10,7 @@ export default function Home() {
   const slides = [
     {
       title: "Farm Smarter",
-      emoji: "👨‍🌾🥕",
+      image: "/emojis/farm.jpg" as string,
       description: "Your One and Only Crop Monitoring System",
       subDescription: "Integrated with IoT and AI System",
     },
@@ -37,7 +38,15 @@ export default function Home() {
         <div className="flex-1 flex items-center justify-center">
           {activeSlide === 0 ? (
             <div className="text-center">
-              <div className="text-6xl mb-6 flex justify-center">{slides[0].emoji}</div>
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src={slides[0].image}
+                  alt="Farm"
+                  width={160}
+                  height={160}
+                  className="object-contain"
+                />
+              </div>
               <h2 className="text-2xl font-semibold mb-2">{slides[0].title}</h2>
             </div>
           ) : (

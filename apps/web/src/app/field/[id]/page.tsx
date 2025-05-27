@@ -7,6 +7,14 @@ import FertilizationCalculator from "@/components/pages/field/fertilization-calc
 import { careStages } from "@/lib/data/data-care";
 import { fertilizationSchedule } from "@/lib/data/data-fertilization";
 
+// Add material icons in head
+if (typeof document !== 'undefined') {
+  const link = document.createElement('link');
+  link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
+}
+
 function getCropEmoji(cropType: string) {
     const crops = [
         { id: "Tomato", emoji: "🍅" },
@@ -252,18 +260,8 @@ export default function FieldDetailPage({
 
         {activeTab === "fertilization" && (
           <div className="py-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-              <h2 className="text-lg font-medium mb-4">
-                Fertilizer Calculator
-              </h2>
-              <button
-                onClick={() => setShowFertilizerModal(true)}
-                className="w-full py-3 bg-green-700 text-white rounded-lg font-medium"
-              >
-                Calculate Fertilizer Needs
-              </button>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-4">
+            <FertilizationCalculator onClose={() => setActiveTab("info")} />
+            <div className="bg-gray-50 rounded-xl p-4 mt-4">
               <h3 className="font-medium mb-3">
                 Recommended Fertilization Schedule
               </h3>
@@ -287,13 +285,6 @@ export default function FieldDetailPage({
           </div>
         )}
       </main>
-
-      {/* Fertilizer Calculator Modal */}
-      {showFertilizerModal && (
-        <FertilizationCalculator
-          onClose={() => setShowFertilizerModal(false)}
-        />
-      )}
     </div>
   );
 }

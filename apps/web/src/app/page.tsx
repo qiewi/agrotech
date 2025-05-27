@@ -16,7 +16,7 @@ export default function Home() {
     },
     {
       title: "Monitor Quicker",
-      icon: <LeafAnimation />,
+      image: "/emojis/leaves1.jpg" as string,
       description: "Your One and Only Crop Monitoring System",
       subDescription: "Integrated with IoT and AI System",
     },
@@ -51,7 +51,15 @@ export default function Home() {
             </div>
           ) : (
             <div className="text-center">
-              <div className="mb-6 flex justify-center">{slides[1].icon}</div>
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src={slides[1].image}
+                  alt="Leaves"
+                  width={160}
+                  height={160}
+                  className="object-contain"
+                />
+              </div>
               <h2 className="text-2xl font-semibold mb-2">{slides[1].title}</h2>
             </div>
           )}

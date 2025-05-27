@@ -8,7 +8,7 @@ import { mapDiagnosisLabel } from "@/lib/data/diagnosis-mapper"
 import { DiagnosisDetails, DiagnosisResult } from "@/components/pages/plant-diagnosis/DiagnosisDetails"
 import { IdentifyingPage } from "@/components/pages/plant-diagnosis/IdentifyingPage"
 import Image from "next/image"
-
+import Header from "@/components/layout/Header"
 import { diagnosisData } from "@/lib/data/data-diagnosis"
 
 const cropDiseases = [
@@ -162,17 +162,8 @@ export default function PlantDiagnosisPage() {
 
   // Default: Upload page (redesigned)
   return (
-    <div className="w-full min-h-screen flex flex-col items-center bg-[#F8FAF9] pb-8">
-      {/* Header */}
-      <div className="w-full flex items-center justify-between px-4 pt-6 pb-2">
-        <div className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="Agrotech" width={36} height={36} />
-          <span className="text-green-700 font-bold text-2xl">Agrotech</span>
-        </div>
-        <div className="bg-gray-100 px-4 py-1 rounded-full text-gray-600 text-sm font-medium">
-          Jatinangor
-        </div>
-      </div>
+    <div className="flex flex-col w-full pb-20 px-2 bg-white">
+      <Header />
 
       {/* Crop Disease Section */}
       <div className="w-full px-4 mt-2">

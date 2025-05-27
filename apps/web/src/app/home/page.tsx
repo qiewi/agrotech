@@ -8,6 +8,7 @@ import AiInsightCard from "@/components/pages/home/AiInsightCard"
 import FieldCard from "@/components/pages/home/FieldCard"
 import { useEffect, useState, useRef } from "react"
 import { useAuth } from "@/app/context/AuthContext"
+import Header from "@/components/layout/Header"
 
 type Field = {
   field_id: number
@@ -76,19 +77,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full pb-20 px-2 bg-white">
-      {/* Header */}
-      <header className="p-6 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <Image src="/logo/agrotech.svg" alt="Agrotech Logo" width={32} height={32} className="w-8 h-8" />
-          <span className="text-xl font-semibold text-gray-800"><span className="text-greenishz">Agro</span>tech</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center bg-gray-100 px-3 py-1.5 rounded-full">
-            <MapPin className="h-4 w-4 text-gray-600 mr-1" />
-            <span className="text-sm font-medium text-gray-700">Jatinangor</span>
-          </div>
-        </div>  
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="flex-1 px-4 pb-24">

@@ -7,6 +7,7 @@ import CustomDatePicker from "@/components/pages/market/CustomDatePicker";
 import { KOMODITAS, KomoditasKategori, KomoditasItem } from "@/lib/data/data-komoditas";
 import { PROVINSI } from "@/lib/data/data-provinsi";
 import KategoriCircleFilter from "@/components/pages/market/KategoriCircleFilter";
+import Header from "@/components/layout/Header";
 
 type KomoditasData = {
   [komoditas: string]: {
@@ -34,7 +35,7 @@ export default function FoodPriceInfo() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:8000/api/pangan")
+    fetch("http://0.0.0.0:8000/api/pangan")
       .then((res) => res.json())
       .then((json) => {
         setData(json);
@@ -79,17 +80,7 @@ export default function FoodPriceInfo() {
 
   return (
     <div className="max-w-[390px] mx-auto bg-white min-h-screen flex flex-col">
-      {/* Header: Logo Agrotech */}
-      <div className="bg-white p-4 border-b border-gray-200 flex items-center gap-2">
-        <Image
-          src="/logo-agrotech.png"
-          alt="Agrotech"
-          width={32}
-          height={32}
-          className="object-contain"
-        />
-        <span className="text-xl font-bold text-green-700 ml-2">Agrotech</span>
-      </div>
+      <Header />
 
       {/* Search */}
       <div className="px-4 pt-4">

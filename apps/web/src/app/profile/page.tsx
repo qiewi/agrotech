@@ -5,6 +5,7 @@ import { Leaf, MapPin, Lock } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { ro } from "react-day-picker/locale";
+import Header from "@/components/layout/Header";
 
 type Field = {
   field_id: number;
@@ -57,23 +58,8 @@ export default function ProfilePage() {
     : "-";
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Header */}
-      <header className="p-6 flex justify-between items-center">
-        <div className="flex items-center">
-          <Leaf className="h-6 w-6 text-green-600 mr-1" />
-          <h1 className="text-lg font-medium">
-            <span className="text-green-600">Agro</span>
-            <span className="text-gray-800">tech</span>
-          </h1>
-        </div>
-        <div className="flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <MapPin className="h-4 w-4 text-gray-600 mr-1" />
-          <span className="text-xs text-gray-700">
-            {fields[0]?.location || "Unknown"}
-          </span>
-        </div>
-      </header>
+    <div className="flex flex-col w-full pb-20 px-2 bg-white">
+      <Header />
 
       {/* Profile Content */}
       <main className="flex-1 px-4 pb-16 mt-2">

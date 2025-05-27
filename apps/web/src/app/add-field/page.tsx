@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, Camera, UploadCloud } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext";
-import CropTypePicker from "@/components/pages/home/CropTypePicker"; // Pastikan path sesuai
+import CropTypePicker from "@/components/pages/home/CropTypePicker";
 
 
 export default function AddFieldPage() {
@@ -103,35 +103,54 @@ const selectedCrop = crops.find((c) => c.id === cropType);
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 px-4 pb-24">
+        <main className="flex-1 px-4 pb-6">
           {/* Upload Image */}
-          <div className="flex flex-col items-center mb-6">
-            <div
-              className="bg-gray-100 rounded-xl w-32 h-32 flex flex-col justify-center items-center cursor-pointer mb-3 border-2 border-dashed border-gray-300"
-              onClick={handleImageClick}
-            >
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              ) : (
-                <>
-                  <UploadCloud className="h-10 w-10 text-gray-400 mb-2" />
-                  <p className="text-gray-500 text-xs">Upload field image</p>
-                </>
-              )}
+          <div className="w-full bg-gray-100 p-5 rounded-lg mb-6">
+            <div className="flex flex-col items-center">
+              <div
+                className="w-16 h-16 rounded-full bg-white flex items-center justify-center cursor-pointer mb-4 border border-gray-300"
+                onClick={handleImageClick}
+              >
+                <UploadCloud className="h-6 w-6 text-gray-600" />
+              </div>
+              <p className="text-sm text-gray-600 mb-4">Upload field image</p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm"
+                  onClick={handleImageClick}
+                >
+                  Take Photo
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm"
+                  onClick={handleImageClick}
+                >
+                  Upload
+                </button>
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                capture="environment"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleImageChange}
+              />
             </div>
-            <input
-              type="file"
-              accept="image/*"
-              capture="environment"
-              ref={fileInputRef}
-              className="hidden"
-              onChange={handleImageChange}
-            />
           </div>
+
+          {/* Preview Image - shown when image is selected */}
+          {imagePreview && (
+            <div className="w-full bg-gray-100 p-8 rounded-lg mb-6">
+              <img
+                src={imagePreview}
+                alt="Field preview"
+                className="w-full h-48 object-cover rounded-lg"
+              />
+            </div>
+          )}
 
           {/* Crop Type Section */}
           <div className="flex items-center gap-3 mb-8">
@@ -139,7 +158,7 @@ const selectedCrop = crops.find((c) => c.id === cropType);
             <span className="font-semibold text-lg">{selectedCrop?.name || "Select Crop"}</span>
             <button
               type="button"
-              className="ml-auto px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium shadow"
+              className="ml-auto px-4 py-2 bg-greenish text-white rounded-lg text-sm font-medium shadow"
               onClick={() => setShowCropPicker(true)}
             >
               Change Crop
@@ -224,7 +243,7 @@ const selectedCrop = crops.find((c) => c.id === cropType);
 
             <button
               type="submit"
-              className="w-full py-4 bg-green-700 text-white rounded-lg font-medium hover:bg-green-800 transition-colors text-lg flex items-center justify-center gap-2"
+              className="w-full py-4 bg-greenish text-white rounded-lg font-medium hover:bg-green-800 transition-colors text-lg flex items-center justify-center gap-2"
               disabled={loading}
             >
               {loading ? "Adding..." : (

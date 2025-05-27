@@ -68,7 +68,7 @@ export default function FieldDetailPage({
   // Fetch sensor data from FastAPI
   useEffect(() => {
     if (!field?.field_code) return;
-    fetch(`http://192.168.1.17:8000/sensor/${field.field_code}`)
+    fetch(`http://0.0.0.0:8000/sensor/${field.field_code}`)
       .then((res) => res.json())
       .then((data) => setSensor(data));
   }, [field?.field_code]);

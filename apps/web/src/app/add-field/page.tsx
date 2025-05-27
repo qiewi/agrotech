@@ -18,6 +18,14 @@ export default function AddFieldPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [touched, setTouched] = useState({
+    fieldName: false,
+    fieldCode: false,
+    location: false,
+    fieldSize: false,
+    image: false,
+    cropType: false,
+  });
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCropPicker, setShowCropPicker] = useState(false);
@@ -38,11 +46,31 @@ export default function AddFieldPage() {
   ];
 
 const selectedCrop = crops.find((c) => c.id === cropType);
+
+  // Validation function
+  const validateForm = () => {
+    const errors = [];
+    
+    if (!image) errors.push("Please upload a field image");
+    if (!cropType) errors.push("Please select a crop type");
+    if (!fieldName.trim()) errors.push("Field name is required");
+    if (!fieldCode.trim()) errors.push("Field code is required");
+    if (!location.trim()) errors.push("Location is required");
+    if (!fieldSize) errors.push("Field size is required");
+
+    return errors;
+  };
+
+  const handleBlur = (field: keyof typeof touched) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImage(file);
       setImagePreview(URL.createObjectURL(file));
+      setTouched(prev => ({ ...prev, image: true }));
     }
   };
 
@@ -52,43 +80,79 @@ const selectedCrop = crops.find((c) => c.id === cropType);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setTouched({
+      fieldName: true,
+      fieldCode: true,
+      location: true,
+      fieldSize: true,
+      image: true,
+      cropType: true,
+    });
+
+    const validationErrors = validateForm();
+    if (validationErrors.length > 0) {
+      setError(validationErrors.join(", "));
+      return;
+    }
+
     if (!user) {
       setError("You must be logged in to add a field.");
       return;
     }
+
     setLoading(true);
     setError("");
     setSuccess(false);
 
     try {
       const res = await fetch("/api/fields", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: user.user_id,
-        field_name: fieldName,
-        location,
-        crop_type: cropType,
-        area_size: fieldSize,
-        field_code: fieldCode,
-        // image_url: image ? URL.createObjectURL(image) : null, // jika ingin upload gambar ke server
-        // image_url: ... (jika sudah upload ke storage)
-      }),
-    });
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: user.user_id,
+          field_name: fieldName,
+          location,
+          crop_type: cropType,
+          area_size: fieldSize,
+          field_code: fieldCode,
+        }),
+      });
 
       if (!res.ok) throw new Error("Failed to add field");
       setSuccess(true);
+      // Reset form
       setFieldName("");
       setFieldCode("");
       setLocation("");
       setFieldSize("");
+      setCropType("Tomato");
       setImage(null);
       setImagePreview(null);
+      setTouched({
+        fieldName: false,
+        fieldCode: false,
+        location: false,
+        fieldSize: false,
+        image: false,
+        cropType: false,
+      });
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  // Helper function to show error state
+  const showError = (field: keyof typeof touched) => {
+    return touched[field] && (
+      field === 'fieldName' && !fieldName.trim() ||
+      field === 'fieldCode' && !fieldCode.trim() ||
+      field === 'location' && !location.trim() ||
+      field === 'fieldSize' && !fieldSize ||
+      field === 'image' && !image ||
+      field === 'cropType' && !cropType
+    );
   };
 
   return (
@@ -105,60 +169,63 @@ const selectedCrop = crops.find((c) => c.id === cropType);
         {/* Main Content */}
         <main className="flex-1 px-4 pb-6">
           {/* Upload Image */}
-          <div className="w-full bg-gray-100 p-5 rounded-lg mb-6">
-            <div className="flex flex-col items-center">
-              <div
-                className="w-16 h-16 rounded-full bg-white flex items-center justify-center cursor-pointer mb-4 border border-gray-300"
-                onClick={handleImageClick}
-              >
-                <UploadCloud className="h-6 w-6 text-gray-600" />
-              </div>
-              <p className="text-sm text-gray-600 mb-4">Upload field image</p>
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm"
-                  onClick={handleImageClick}
-                >
-                  Take Photo
-                </button>
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm"
-                  onClick={handleImageClick}
-                >
-                  Upload
-                </button>
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                capture="environment"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleImageChange}
+          <div 
+            className={`w-full bg-gray-100 rounded-lg mb-6 overflow-hidden ${showError('image') ? 'ring-2 ring-red-500' : ''}`}
+            onClick={handleImageClick}
+          >
+            {imagePreview ? (
+              <img 
+                src={imagePreview} 
+                alt="Field preview" 
+                className="w-full h-48 object-cover"
               />
-            </div>
+            ) : (
+              <div className="p-5">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-20 h-20 rounded-full bg-white flex items-center justify-center cursor-pointer mb-2 border ${showError('image') ? 'border-red-500' : 'border-gray-300'}`}
+                  >
+                    <UploadCloud className={`h-6 w-6 ${showError('image') ? 'text-red-500' : 'text-gray-600'}`} />
+                  </div>
+                  <p className={`text-sm ${showError('image') ? 'text-red-500' : 'text-gray-600'} mb-2`}>
+                    {showError('image') ? 'Image is required' : 'Upload field image'}
+                  </p>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm"
+                    >
+                      Take Photo
+                    </button>
+                    <button
+                      type="button"
+                      className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm"
+                    >
+                      Upload
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              capture="environment"
+              ref={fileInputRef}
+              className="hidden"
+              onChange={handleImageChange}
+            />
           </div>
 
-          {/* Preview Image - shown when image is selected */}
-          {imagePreview && (
-            <div className="w-full bg-gray-100 p-8 rounded-lg mb-6">
-              <img
-                src={imagePreview}
-                alt="Field preview"
-                className="w-full h-48 object-cover rounded-lg"
-              />
-            </div>
-          )}
-
           {/* Crop Type Section */}
-          <div className="flex items-center gap-3 mb-8">
+          <div className={`flex items-center gap-3 mb-8 ${showError('cropType') ? 'ring-2 ring-red-500 rounded-lg p-2' : ''}`}>
             <span className="text-2xl">{selectedCrop?.emoji || "🌱"}</span>
-            <span className="font-semibold text-lg">{selectedCrop?.name || "Select Crop"}</span>
+            <span className={`font-semibold text-lg ${!cropType && touched.cropType ? 'text-red-500' : ''}`}>
+              {selectedCrop?.name || "Select Crop"}
+            </span>
             <button
               type="button"
-              className="ml-auto px-4 py-2 bg-greenish text-white rounded-lg text-sm font-medium shadow"
+              className={`ml-auto px-4 py-2 ${showError('cropType') ? 'bg-red-100 text-red-500' : 'bg-greenish text-white'} rounded-lg text-sm font-medium shadow`}
               onClick={() => setShowCropPicker(true)}
             >
               Change Crop
@@ -184,10 +251,18 @@ const selectedCrop = crops.find((c) => c.id === cropType);
                 id="fieldName"
                 value={fieldName}
                 onChange={(e) => setFieldName(e.target.value)}
+                onBlur={() => handleBlur('fieldName')}
                 placeholder="Jagung Field"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                  showError('fieldName') 
+                    ? 'border-red-500 focus:ring-red-500' 
+                    : 'border-gray-300 focus:ring-green-600'
+                }`}
                 required
               />
+              {showError('fieldName') && (
+                <p className="text-red-500 text-sm mt-1">Field name is required</p>
+              )}
             </div>
 
             <div>
@@ -199,9 +274,18 @@ const selectedCrop = crops.find((c) => c.id === cropType);
                 id="fieldCode"
                 value={fieldCode}
                 onChange={(e) => setFieldCode(e.target.value)}
+                onBlur={() => handleBlur('fieldCode')}
                 placeholder="F001"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                  showError('fieldCode') 
+                    ? 'border-red-500 focus:ring-red-500' 
+                    : 'border-gray-300 focus:ring-green-600'
+                }`}
+                required
               />
+              {showError('fieldCode') && (
+                <p className="text-red-500 text-sm mt-1">Field code is required</p>
+              )}
             </div>
             
 
@@ -214,10 +298,18 @@ const selectedCrop = crops.find((c) => c.id === cropType);
                 id="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
+                onBlur={() => handleBlur('location')}
                 placeholder="Bandung"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                  showError('location') 
+                    ? 'border-red-500 focus:ring-red-500' 
+                    : 'border-gray-300 focus:ring-green-600'
+                }`}
                 required
               />
+              {showError('location') && (
+                <p className="text-red-500 text-sm mt-1">Location is required</p>
+              )}
             </div>
 
             <div>
@@ -230,12 +322,20 @@ const selectedCrop = crops.find((c) => c.id === cropType);
                   id="fieldSize"
                   value={fieldSize}
                   onChange={(e) => setFieldSize(e.target.value)}
+                  onBlur={() => handleBlur('fieldSize')}
                   placeholder="10"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 pr-12"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 pr-12 ${
+                    showError('fieldSize') 
+                      ? 'border-red-500 focus:ring-red-500' 
+                      : 'border-gray-300 focus:ring-green-600'
+                  }`}
                   required
                 />
                 <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">ha</span>
               </div>
+              {showError('fieldSize') && (
+                <p className="text-red-500 text-sm mt-1">Field size is required</p>
+              )}
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}

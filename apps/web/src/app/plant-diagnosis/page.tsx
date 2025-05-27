@@ -10,6 +10,7 @@ import { IdentifyingPage } from "@/components/pages/plant-diagnosis/IdentifyingP
 import Image from "next/image"
 import Header from "@/components/layout/Header"
 import { diagnosisData } from "@/lib/data/data-diagnosis"
+import DiseaseCard from "@/components/pages/plant-diagnosis/DiseaseCard"
 
 const cropDiseases = [
   {
@@ -169,23 +170,14 @@ export default function PlantDiagnosisPage() {
       <div className="w-full px-4 mt-2">
         <h2 className="font-bold text-lg">Crop Disease</h2>
         <p className="text-gray-500 text-sm mb-2">Explore diseases that crops may suffer</p>
-        <div className="flex gap-3 overflow-x-auto pb-2">
+        <div className="flex gap-3 overflow-x-auto py-2 px-1 no-scrollbar">
           {cropDiseases.map((disease) => (
-            <button
+            <DiseaseCard
               key={disease.key}
-              type="button"
+              name={disease.name}
+              image={disease.img ?? "/placeholder.png"}
               onClick={() => handleDiseaseClick(disease.key)}
-              className="min-w-[120px] bg-white rounded-xl shadow flex flex-col items-center focus:ring-2 ring-green-400 transition"
-            >
-              <Image
-                src={disease.img ?? "/placeholder.png"}
-                alt={disease.name}
-                width={120}
-                height={80}
-                className="object-cover rounded-t-xl"
-              />
-              <span className="text-xs font-medium py-2">{disease.name}</span>
-            </button>
+            />
           ))}
         </div>
       </div>

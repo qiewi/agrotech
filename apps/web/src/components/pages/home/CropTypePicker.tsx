@@ -2,20 +2,21 @@
 
 import { useState } from "react";
 import { X, Check } from "lucide-react";
+import Image from "next/image";
 
 const crops = [
-  { id: "Tomato", name: "Tomato", emoji: "🍅" },
-  { id: "Eggplant", name: "Eggplant", emoji: "🍆" },
-  { id: "Corn", name: "Corn", emoji: "🌽" },
-  { id: "Potato", name: "Potato", emoji: "🥔" },
-  { id: "Chili", name: "Red Chilli", emoji: "🌶️" },
-  { id: "Bellpepper", name: "Bell Pepper", emoji: "🫑" },
-  { id: "Cucumber", name: "Cucumber", emoji: "🥒" },
-  { id: "Ginger", name: "Ginger", emoji: "🫚" },
-  { id: "Broccoli", name: "Broccoli", emoji: "🥦" },
-  { id: "Peas", name: "Peas", emoji: "🫛" },
-  { id: "Lettuce", name: "Lettuce", emoji: "🥬" },
-  { id: "Beans", name: "Beans", emoji: "🫘" },
+  { id: "Tomato", name: "Tomato", image: "/emojis/tomato.png" },
+  { id: "Eggplant", name: "Eggplant", image: "/emojis/eggplant.png" },
+  { id: "Corn", name: "Corn", image: "/emojis/corn.png" },
+  { id: "Potato", name: "Potato", image: "/emojis/potato.png" },
+  { id: "Chili", name: "Red Chilli", image: "/emojis/redchilli.png" },
+  { id: "Bellpepper", name: "Bell Pepper", image: "/emojis/bellpepper.png" },
+  { id: "Cucumber", name: "Cucumber", image: "/emojis/cucumber.png" },
+  { id: "Ginger", name: "Ginger", image: "/emojis/ginger.png" },
+  { id: "Broccoli", name: "Broccoli", image: "/emojis/broccoli.png" },
+  { id: "Peas", name: "Peas", image: "/emojis/peas.png" },
+  { id: "Lettuce", name: "Lettuce", image: "/emojis/lettuce.png" },
+  { id: "Beans", name: "Beans", image: "/emojis/beans.png" },
 ];
 
 interface CropTypePickerModalProps {
@@ -67,7 +68,18 @@ export default function CropTypePickerModal({
                   : "border-gray-200"
               }`}
             >
-              <span className="text-3xl mb-1">{crop.emoji}</span>
+              {'image' in crop ? (
+                <div className="w-12 h-12 relative mb-1">
+                  <Image
+                    src={crop.image}
+                    alt={crop.name}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              ) : (
+                <span className="text-3xl mb-1">{crop.emoji}</span>
+              )}
               <span className="text-sm font-medium">{crop.name}</span>
             </button>
           ))}

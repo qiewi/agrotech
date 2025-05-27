@@ -25,7 +25,7 @@ const WeatherCard = ({
     >
       <div className="flex flex-col items-center mb-6 opacity-100">
         <div className="relative mb-2 text-6xl pb-2">
-          <Image src="/emojis/sun.jpg" alt="Sun" width={100} height={100} />
+          <Image src="/emojis/sun.png" alt="Sun" width={100} height={100} />
         </div>
         <h1 className="text-4xl text-black">{temperature}°C</h1>
         <p className="text-black text-sm mt-1">{condition}</p>

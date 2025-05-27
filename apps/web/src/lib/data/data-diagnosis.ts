@@ -281,7 +281,7 @@ export const diagnosisData: Record<string, DiagnosisResult> = {
     solutions: [
       { title: "Fungisida Sistemik", description: "Gunakan fungisida sistemik sesuai anjuran." }
     ],
-    imageUrl: "/dummy/tomato_late_blight.jpg"
+    imageUrl: "/images/disease/leaf-rust.jpg"
   },
   tomato_leaf_mold: {
     diseaseName: "Leaf Mold pada Tomat",

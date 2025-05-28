@@ -14,19 +14,19 @@ import DiseaseCard from "@/components/pages/plant-diagnosis/DiseaseCard"
 
 const cropDiseases = [
   {
-    key: "tomato_late_blight",
-    name: diagnosisData.tomato_late_blight.diseaseName,
-    img: diagnosisData.tomato_late_blight.imageUrl,
+    key: "cherry_including_sour_powdery_mildew",
+    name: diagnosisData.cherry_including_sour_powdery_mildew.diseaseName,
+    img: diagnosisData.cherry_including_sour_powdery_mildew.imageUrl,
   },
   {
-    key: "peach_bacterial_spot",
-    name: diagnosisData.peach_bacterial_spot.diseaseName,
-    img: diagnosisData.peach_bacterial_spot.imageUrl,
+    key: "tomato_spider_mites_two_spotted_spider_mite",
+    name: diagnosisData.tomato_spider_mites_two_spotted_spider_mite.diseaseName,
+    img: diagnosisData.tomato_spider_mites_two_spotted_spider_mite.imageUrl,
   },
   {
-    key: "squash_powdery_mildew",
-    name: diagnosisData.squash_powdery_mildew.diseaseName,
-    img: diagnosisData.squash_powdery_mildew.imageUrl,
+    key: "grape_esca_black_measles",
+    name: diagnosisData.grape_esca_black_measles.diseaseName,
+    img: diagnosisData.grape_esca_black_measles.imageUrl,
   },
   {
     key: "apple_apple_scab",

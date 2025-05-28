@@ -29,6 +29,21 @@ type AllSensorData = {
   [id: string]: SensorData
 }
 
+const cropTypeImageMap: Record<string, string> = {
+  Tomato: "/images/field/tomato-field.jpg",
+  Eggplant: "/images/field/eggplant-field.jpg",
+  Corn: "/images/field/corn-field.jpg",
+  Potato: "/images/field/potato-field.jpg",
+  Chili: "/images/field/chili-field.jpg",
+  Bellpepper: "/images/field/bellpepper-field.jpg",
+  Cucumber: "/images/field/cucumber-field.jpg",
+  Ginger: "/images/field/ginger-field.jpg",
+  Broccoli: "/images/field/broccoli-field.jpg",
+  Peas: "/images/field/peas-field.jpg",
+  Lettuce: "/images/field/lettuce-field.jpg",
+  Beans: "/images/field/beans-field.jpg",
+};
+
 export default function Home() {
   const { user } = useAuth()
   const [fields, setFields] = useState<Field[]>([])
@@ -67,11 +82,15 @@ export default function Home() {
   // Gabungkan data field dari DB dengan data sensor dari FastAPI
   const fieldsWithSensor = fields.map((field) => {
     const sensor = field.field_code ? allSensors[field.field_code] : undefined
+    let imageUrl = field.image_url || "/images/lahan_default.jpg";
+    if (field.crop_type && cropTypeImageMap[field.crop_type]) {
+      imageUrl = cropTypeImageMap[field.crop_type];
+    }
     return {
       ...field,
       temperature: sensor?.temperature ?? 0,
       humidity: sensor?.humidity ?? 0,
-      imageUrl: field.image_url || "/images/lahan_default.jpg",
+      imageUrl,
     }
   })
 

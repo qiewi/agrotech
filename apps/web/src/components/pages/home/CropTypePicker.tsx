@@ -78,7 +78,7 @@ export default function CropTypePickerModal({
                   />
                 </div>
               ) : (
-                <span className="text-3xl mb-1">{crop.emoji}</span>
+                <span className="text-3xl mb-1">No Image</span>
               )}
               <span className="text-sm font-medium">{crop.name}</span>
             </button>

@@ -9,7 +9,6 @@ import CropTypePicker from "@/components/pages/home/CropTypePicker";
 
 export default function AddFieldPage() {
   const [fieldName, setFieldName] = useState("");
-  const [fieldCode, setFieldCode] = useState("");
   const [location, setLocation] = useState("");
   const [fieldSize, setFieldSize] = useState("");
   const [cropType, setCropType] = useState("Tomato");
@@ -20,7 +19,6 @@ export default function AddFieldPage() {
   const [success, setSuccess] = useState(false);
   const [touched, setTouched] = useState({
     fieldName: false,
-    fieldCode: false,
     location: false,
     fieldSize: false,
     image: false,
@@ -54,7 +52,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
     if (!image) errors.push("Please upload a field image");
     if (!cropType) errors.push("Please select a crop type");
     if (!fieldName.trim()) errors.push("Field name is required");
-    if (!fieldCode.trim()) errors.push("Field code is required");
     if (!location.trim()) errors.push("Location is required");
     if (!fieldSize) errors.push("Field size is required");
 
@@ -82,7 +79,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
     e.preventDefault();
     setTouched({
       fieldName: true,
-      fieldCode: true,
       location: true,
       fieldSize: true,
       image: true,
@@ -114,7 +110,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
           location,
           crop_type: cropType,
           area_size: fieldSize,
-          field_code: fieldCode,
         }),
       });
 
@@ -122,7 +117,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
       setSuccess(true);
       // Reset form
       setFieldName("");
-      setFieldCode("");
       setLocation("");
       setFieldSize("");
       setCropType("Tomato");
@@ -130,7 +124,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
       setImagePreview(null);
       setTouched({
         fieldName: false,
-        fieldCode: false,
         location: false,
         fieldSize: false,
         image: false,
@@ -147,7 +140,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
   const showError = (field: keyof typeof touched) => {
     return touched[field] && (
       field === 'fieldName' && !fieldName.trim() ||
-      field === 'fieldCode' && !fieldCode.trim() ||
       field === 'location' && !location.trim() ||
       field === 'fieldSize' && !fieldSize ||
       field === 'image' && !image ||
@@ -264,30 +256,6 @@ const selectedCrop = crops.find((c) => c.id === cropType);
                 <p className="text-red-500 text-sm mt-1">Field name is required</p>
               )}
             </div>
-
-            <div>
-              <label htmlFor="fieldCode" className="block text-gray-700 font-medium mb-1">
-                Field Code
-              </label>
-              <input
-                type="text"
-                id="fieldCode"
-                value={fieldCode}
-                onChange={(e) => setFieldCode(e.target.value)}
-                onBlur={() => handleBlur('fieldCode')}
-                placeholder="F001"
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
-                  showError('fieldCode') 
-                    ? 'border-red-500 focus:ring-red-500' 
-                    : 'border-gray-300 focus:ring-green-600'
-                }`}
-                required
-              />
-              {showError('fieldCode') && (
-                <p className="text-red-500 text-sm mt-1">Field code is required</p>
-              )}
-            </div>
-            
 
             <div>
               <label htmlFor="location" className="block text-gray-700 font-medium mb-1">

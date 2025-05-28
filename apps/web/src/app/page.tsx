@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Leaf, Link } from "lucide-react"
 import Image from "next/image"
+import Logo from "@/components/layout/Logo"
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -26,13 +27,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between bg-white text-black">
       <div className="w-full max-w-md mx-auto h-screen flex flex-col p-6">
         {/* Logo */}
-        <div className="flex items-center justify-center mt-2 mb-2">
-          <Leaf className="h-8 w-8 text-green-600" />
-          <h1 className="text-2xl font-medium">
-            <span className="text-green-600">Agro</span>
-            <span className="text-gray-800">tech</span>
-          </h1>
-        </div>
+        <Logo />
 
         {/* Slider */}
         <div className="flex-1 flex items-center justify-center">

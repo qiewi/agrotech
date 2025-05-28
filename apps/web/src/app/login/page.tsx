@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
 import { useRouter } from "next/navigation"
+import Logo from "@/components/layout/Logo"
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
@@ -43,13 +44,14 @@ export default function Login() {
     <main className="flex min-h-screen flex-col items-center bg-white text-black">
       <div className="w-full max-w-md mx-auto h-screen flex flex-col p-6">
         {/* Logo */}
-        <div className="flex justify-center mt-10 mb-12 gap-3">
-          <Image src="/logo/agrotech.svg" alt="Agrotech Logo" width={32} height={32} className="w-8 h-8" />
-          <span className="text-xl font-semibold text-gray-800"><span className="text-greenish">Agro</span>tech</span>
-        </div>
+        <Logo />
 
         {/* Greeting with Emoji */}
-        <div className="flex items-center mb-10">
+        <div 
+        className="flex items-center mb-10 rounded-xl py-4 px-4"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,255,255,0.59) 0%, rgba(238,238,238,0.59) 60%)"
+        }}>
           <div className="text-5xl mr-4">
             <Image
               src={"/emojis/farmer.png"}
@@ -77,7 +79,7 @@ export default function Login() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="email"
+              placeholder="Email"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
               required
             />
@@ -93,7 +95,7 @@ export default function Login() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="password"
+                placeholder="Password"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 required
               />

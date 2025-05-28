@@ -3,26 +3,26 @@ export const KATEGORI_LIST = [
     {
         label: "Semua",
         value: "Semua",
-        icon: "/kategori-semua.png", // ganti dengan path gambar/icon kamu
+        icon: "/emojis/corn.png", // ganti dengan path gambar/icon kamu
     },
   {
     label: "Pangan",
     value: "Tanaman Pangan",
-    icon: "/kategori-pangan.png", // ganti dengan path gambar/icon kamu
+    icon: "/emojis/potato.png", // ganti dengan path gambar/icon kamu
   },
   {
     label: "Holtikultura",
     value: "Holtikultura",
-    icon: "/kategori-holtikultura.png",
+    icon: "/emojis/redchilli.png",
   },
   {
     label: "Kebun",
     value: "Perkebunan",
-    icon: "/kategori-kebun.png",
+    icon: "/emojis/beans.png",
   },
   {
     label: "Peternakan",
     value: "Peternakan",
-    icon: "/kategori-peternakan.png",
+    icon: "/emojis/farmer.png",
   },
 ];

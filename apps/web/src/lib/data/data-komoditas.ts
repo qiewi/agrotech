@@ -27,8 +27,8 @@ export const KOMODITAS: KomoditasItem[] = [
   // Holtikultura
   { nama: "Bawang Merah", kategori: "Holtikultura", kode: "bawang-merah" },
   { nama: "Bawang Putih Bonggol", kategori: "Holtikultura", kode: "bawang-putih-bonggol" },
-  { nama: "Cabai Rawit Merah", kategori: "Holtikultura", kode: "cabe-rawit-merah" },
-  { nama: "Cabai Merah Keriting", kategori: "Holtikultura", kode: "cabe-merah-keriting" },
+  { nama: "Cabai Rawit Merah", kategori: "Holtikultura", kode: "cabai-rawit-merah" },
+  { nama: "Cabai Merah Keriting", kategori: "Holtikultura", kode: "cabai-merah-keriting" },
   { nama: "Krisan", kategori: "Holtikultura", kode: "krisan" },
   { nama: "Durian", kategori: "Holtikultura", kode: "durian" },
   { nama: "Manggis", kategori: "Holtikultura", kode: "manggis" },

@@ -11,7 +11,7 @@ interface Props {
 export default function FoodPriceGridCard({ title, price, imageSrc, imageAlt }: Props) {
   return (
     <Link href={`/market/${title.toLowerCase().replace(/ /g, "-")}`}>
-      <div className="rounded-xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-xl bg-white overflow-hidden">
         <div className="w-full aspect-[4/3] relative">
           <Image
             src={imageSrc}

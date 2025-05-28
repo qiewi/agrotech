@@ -32,6 +32,7 @@ export default function FoodPriceInfo() {
   const [selectedProvinsi, setSelectedProvinsi] = useState<string>("Nasional");
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedKategori, setSelectedKategori] = useState<KomoditasKategori | "Semua">("Semua");
+  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -79,12 +80,12 @@ export default function FoodPriceInfo() {
   );
 
   return (
-    <div className="max-w-[390px] mx-auto bg-white min-h-screen flex flex-col">
+    <div className="flex flex-col w-full pb-20 px-2 bg-white">
       <Header />
 
       {/* Search */}
       <div className="px-4 pt-4">
-        <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+        <div className="flex items-center border rounded-lg px-3 py-2.5 bg-gray-50">
           <svg
             className="w-5 h-5 text-gray-400 mr-2"
             fill="none"
@@ -97,16 +98,17 @@ export default function FoodPriceInfo() {
           </svg>
           <input
             type="text"
-            placeholder="Search crop..."
+            placeholder="kokoa premium"
             className="bg-transparent outline-none flex-1 text-sm"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <span className="text-sm font-medium text-gray-800">Find</span>
         </div>
       </div>
 
       {/* Filter Kategori Lingkaran */}
-      <div className="px-4 pt-2">
+      <div className="px-4 pt-4">
         <KategoriCircleFilter
           selected={selectedKategori}
           onSelect={(value) => setSelectedKategori(value as KomoditasKategori | "Semua")}
@@ -128,14 +130,22 @@ export default function FoodPriceInfo() {
         </select>
       </div>
 
-      {/* Calendar Date Picker */}
+      {/* Calendar Picker Toggle Button */}
       {availableDates.length > 0 && (
         <div className="px-4 pt-2">
-          <CustomDatePicker
-            availableDates={availableDates}
-            selected={selectedDate}
-            onSelect={setSelectedDate}
-          />
+          <button
+            className="w-full py-2 bg-greenish text-white rounded-lg font-medium mb-2"
+            onClick={() => setShowCalendar((prev) => !prev)}
+          >
+            {showCalendar ? "Hide Calendar" : "Pick Date"}
+          </button>
+          {showCalendar && (
+            <CustomDatePicker
+              availableDates={availableDates}
+              selected={selectedDate}
+              onSelect={setSelectedDate}
+            />
+          )}
         </div>
       )}
 
@@ -146,7 +156,7 @@ export default function FoodPriceInfo() {
       </div>
 
       {/* Grid Content */}
-      <div className="flex-1 p-4">
+      <div className="px-4 py-4">
         {loading ? (
           <div className="flex justify-center items-center h-40">
             <svg

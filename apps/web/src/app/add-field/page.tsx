@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Camera, UploadCloud } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext";
 import CropTypePicker from "@/components/pages/home/CropTypePicker";
+import Image from "next/image";
 
 
 export default function AddFieldPage() {
@@ -29,21 +30,21 @@ export default function AddFieldPage() {
   const [showCropPicker, setShowCropPicker] = useState(false);
 
   const crops = [
-    { id: "tomato", name: "Tomato", emoji: "🍅" },
-    { id: "eggplant", name: "Eggplant", emoji: "🍆" },
-    { id: "corn", name: "Corn", emoji: "🌽" },
-    { id: "potato", name: "Potato", emoji: "🥔" },
-    { id: "chili", name: "Red Chilli", emoji: "🌶️" },
-    { id: "bellpepper", name: "Bell Pepper", emoji: "🫑" },
-    { id: "cucumber", name: "Cucumber", emoji: "🥒" },
-    { id: "ginger", name: "Ginger", emoji: "🫚" },
-    { id: "broccoli", name: "Broccoli", emoji: "🥦" },
-    { id: "peas", name: "Peas", emoji: "🫛" },
-    { id: "lettuce", name: "Lettuce", emoji: "🥬" },
-    { id: "beans", name: "Beans", emoji: "🫘" },
+    { id: "Tomato", name: "Tomato", image: "/emojis/tomato.png" },
+    { id: "Eggplant", name: "Eggplant", image: "/emojis/eggplant.png" },
+    { id: "Corn", name: "Corn", image: "/emojis/corn.png" },
+    { id: "Potato", name: "Potato", image: "/emojis/potato.png" },
+    { id: "Chili", name: "Red Chilli", image: "/emojis/redchilli.png" },
+    { id: "Bellpepper", name: "Bell Pepper", image: "/emojis/bellpepper.png" },
+    { id: "Cucumber", name: "Cucumber", image: "/emojis/cucumber.png" },
+    { id: "Ginger", name: "Ginger", image: "/emojis/ginger.png" },
+    { id: "Broccoli", name: "Broccoli", image: "/emojis/broccoli.png" },
+    { id: "Peas", name: "Peas", image: "/emojis/peas.png" },
+    { id: "Lettuce", name: "Lettuce", image: "/emojis/lettuce.png" },
+    { id: "Beans", name: "Beans", image: "/emojis/beans.png" },
   ];
 
-const selectedCrop = crops.find((c) => c.id === cropType);
+  const selectedCrop = crops.find((c) => c.id === cropType);
 
   // Validation function
   const validateForm = () => {
@@ -151,11 +152,11 @@ const selectedCrop = crops.find((c) => c.id === cropType);
     <div className="flex flex-col w-full pb-20 px-2 bg-white">
       <div className="w-full max-w-md mx-auto">
         {/* Header */}
-        <header className="p-6 flex items-center">
-          <Link href="/home" className="mr-4">
+        <header className="p-6 flex items-center relative">
+          <Link href="/home" className="absolute left-6">
             <ArrowLeft className="h-6 w-6 text-gray-800" />
           </Link>
-          <h1 className="text-xl font-medium">New Field</h1>
+          <h1 className="text-xl font-medium w-full text-center">New Field</h1>
         </header>
 
         {/* Main Content */}
@@ -211,7 +212,18 @@ const selectedCrop = crops.find((c) => c.id === cropType);
 
           {/* Crop Type Section */}
           <div className={`flex items-center gap-3 mb-8 ${showError('cropType') ? 'ring-2 ring-red-500 rounded-lg p-2' : ''}`}>
-            <span className="text-2xl">{selectedCrop?.emoji || "🌱"}</span>
+            {selectedCrop?.image ? (
+              <div className="w-8 h-8 relative">
+                <Image
+                  src={selectedCrop.image}
+                  alt={selectedCrop.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <span className="text-2xl">🌱</span>
+            )}
             <span className={`font-semibold text-lg ${!cropType && touched.cropType ? 'text-red-500' : ''}`}>
               {selectedCrop?.name || "Select Crop"}
             </span>

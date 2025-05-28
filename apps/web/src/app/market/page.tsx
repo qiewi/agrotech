@@ -192,7 +192,7 @@ export default function FoodPriceInfo() {
                   key={item.kode}
                   title={item.nama}
                   price={price}
-                  imageSrc={`/${item.kode}.png`}
+                  imageSrc={`/images/commodity/${item.kode}.png`}
                   imageAlt={item.nama}
                 />
               );

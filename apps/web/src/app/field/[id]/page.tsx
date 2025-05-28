@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, MessageSquare } from "lucide-react";
 import FertilizationCalculator from "@/components/pages/field/fertilization-calculator";
 import { careStages } from "@/lib/data/data-care";
 import { fertilizationSchedule } from "@/lib/data/data-fertilization";
+import AiInsightCard from "@/components/pages/home/AiInsightCard";
 
 // Add material icons in head
 if (typeof document !== 'undefined') {
@@ -201,19 +202,7 @@ export default function FieldDetailPage({
               </div>
             </div>
 
-            <div className="bg-green-700 rounded-xl p-4">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center">
-                  <div className="bg-white p-2 rounded-full mr-3">
-                    <MessageSquare className="h-5 w-5 text-green-700" />
-                  </div>
-                  <p className="text-white">
-                    Talk to our AI and get insights on your field
-                  </p>
-                </div>
-                <ArrowRight className="h-5 w-5 text-white" />
-              </div>
-            </div>
+            <AiInsightCard/>
           </div>
         )}
 

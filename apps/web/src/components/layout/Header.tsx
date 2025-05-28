@@ -6,7 +6,7 @@ export default function Header() {
     <header className="p-6 flex justify-between items-center">
       <div className="flex items-center gap-3">
         <Image src="/logo/agrotech.svg" alt="Agrotech Logo" width={32} height={32} className="w-8 h-8" />
-        <span className="text-xl font-semibold text-gray-800"><span className="text-greenishz">Agro</span>tech</span>
+        <span className="text-xl font-semibold text-gray-800"><span className="text-greenish">Agro</span>tech</span>
       </div>
       <div className="flex items-center gap-3">
         <div className="flex items-center bg-gray-100 px-3 py-1.5 rounded-full">

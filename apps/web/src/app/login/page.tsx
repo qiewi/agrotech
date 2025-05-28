@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-
+import Image from "next/image"
 import { useState } from "react"
-import { Leaf, Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
 import { useRouter } from "next/navigation"
 
@@ -27,9 +27,9 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        setUser(data.user); // Set user in context
+        setUser(data.user);
         alert("Login sukses!");
-        router.push("/home"); // Redirect to dashboard
+        router.push("/home");
       } else {
         alert(data.error || "Login gagal");
       }
@@ -43,20 +43,25 @@ export default function Login() {
     <main className="flex min-h-screen flex-col items-center bg-white text-black">
       <div className="w-full max-w-md mx-auto h-screen flex flex-col p-6">
         {/* Logo */}
-        <div className="flex items-center justify-center mt-10 mb-12">
-          <Leaf className="h-8 w-8 text-green-600" />
-          <h1 className="text-2xl font-medium">
-            <span className="text-green-600">Agro</span>
-            <span className="text-gray-800">tech</span>
-          </h1>
+        <div className="flex justify-center mt-10 mb-12 gap-3">
+          <Image src="/logo/agrotech.svg" alt="Agrotech Logo" width={32} height={32} className="w-8 h-8" />
+          <span className="text-xl font-semibold text-gray-800"><span className="text-greenish">Agro</span>tech</span>
         </div>
 
         {/* Greeting with Emoji */}
         <div className="flex items-center mb-10">
-          <div className="text-5xl mr-4">👨‍🌾</div>
+          <div className="text-5xl mr-4">
+            <Image
+              src={"/emojis/farmer.png"}
+              alt="Profile"
+              className="rounded-full object-cover"
+              width={120}
+              height={120}
+            />
+          </div>
           <div>
             <p className="text-lg font-medium">
-              Ready to Manage Your Farm with <span className="text-green-600 font-semibold">Agrotech</span>?
+              Ready to Manage Your Farm with <span className="text-xl font-semibold text-gray-800"><span className="text-greenish">Agro</span>tech</span>?
             </p>
           </div>
         </div>
@@ -64,7 +69,7 @@ export default function Login() {
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-4">
-            <label htmlFor="email" className="block text-green-700 font-medium mb-2">
+            <label htmlFor="email" className="block text-greenish font-semibold mb-2">
               Email
             </label>
             <input
@@ -79,7 +84,7 @@ export default function Login() {
           </div>
 
           <div className="mb-8">
-            <label htmlFor="password" className="block text-green-700 font-medium mb-2">
+            <label htmlFor="password" className="block text-greenish font-semibold mb-2">
               Password
             </label>
             <div className="relative">
@@ -104,7 +109,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full py-4 bg-green-700 text-white rounded-lg font-medium hover:bg-green-800 transition-colors"
+            className="w-full py-4 bg-greenish text-white rounded-lg font-medium hover:bg-green-800 transition-colors"
           >
             Sign In
           </button>

@@ -134,7 +134,7 @@ export default function FoodPriceInfo() {
       {availableDates.length > 0 && (
         <div className="px-4 pt-2">
           <button
-            className="w-full py-2 bg-greenish text-white rounded-lg font-medium mb-2"
+            className="w-full py-2 bg-greenish text-white rounded-lg shadow-lg font-medium mb-2"
             onClick={() => setShowCalendar((prev) => !prev)}
           >
             {showCalendar ? "Hide Calendar" : "Pick Date"}

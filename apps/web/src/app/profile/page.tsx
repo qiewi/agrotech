@@ -104,7 +104,7 @@ export default function ProfilePage() {
           {/* Change Password Button */}
           <button
             onClick={handleChangePassword}
-            className="w-full flex items-center justify-center bg-greenish text-white py-4 rounded-lg text-sm mt-2"
+            className="w-full flex items-center justify-center bg-greenish text-white py-4 shadow-lg rounded-lg text-sm mt-2"
           >
             <Lock className="h-4 w-4 mr-2" />
             <span className="font-medium">Change Password</span>

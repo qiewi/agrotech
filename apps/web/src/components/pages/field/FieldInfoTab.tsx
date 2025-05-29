@@ -1,9 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import AiInsightCard from "@/components/pages/home/AiInsightCard";
+import Link from "next/link";
 
 type FieldInfoTabProps = {
   field: {
+    field_id: number;
     field_name: string;
     image_url?: string;
     area_size?: number;
@@ -41,9 +43,12 @@ export default function FieldInfoTab({ field, sensor }: FieldInfoTabProps) {
             alt={field.field_name}
             className="w-full h-full object-cover"
           />
-          <button className="absolute top-4 right-4 text-sm bg-white text-greenish rounded-sm px-5 py-1 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200">
+          <Link
+            href={`/edit-field/${field.field_id}`}
+            className="absolute top-4 right-4 text-sm bg-white text-greenish rounded-sm px-5 py-1 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200"
+          >
             Edit
-          </button>
+          </Link>
         </div>
 
         {/* Weather Card */}

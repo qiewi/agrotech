@@ -91,9 +91,9 @@ export default function FieldDetailPage({
   if (!field) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-screen overflow-hidden">
       {/* Header */}
-      <header className="p-6 flex items-center justify-between">
+      <header className="p-6 flex items-center justify-between bg-white">
         <div className="flex items-center">
           <Link href="/home" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-gray-800" />
@@ -109,7 +109,7 @@ export default function FieldDetailPage({
       </header>
 
       {/* Crop Info */}
-      <div className="px-6 mb-4 flex items-center">
+      <div className="px-6 mb-4 flex items-center bg-white">
         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
             <Image 
               src={getCropEmoji(field.crop_type || "")}
@@ -123,7 +123,7 @@ export default function FieldDetailPage({
       </div>
 
       {/* Tabs */}
-      <div className="px-6 border-b border-gray-200">
+      <div className="px-6 border-b border-gray-200 bg-white">
         <div className="flex justify-between">
           <button
             onClick={() => setActiveTab("info")}
@@ -159,7 +159,7 @@ export default function FieldDetailPage({
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 px-6 pb-24">
+      <main className={`flex-1 overflow-auto`}>
         {activeTab === "info" && (
           <FieldInfoTab field={field} sensor={sensor} />
         )}

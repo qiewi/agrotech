@@ -35,60 +35,59 @@ export default function FieldInfoTab({ field, sensor }: FieldInfoTabProps) {
   };
 
   return (
-    <div className="-mx-6 ">
+    <div className="h-full flex flex-col bg-gray-100 -mx-4">
       {/* Field Image Container */}
-      <div className="relative mb-24">
-        <div className="h-48">
+      <div className="relative h-48">
+        <div className="absolute inset-0 z-0">
           <img
             src={getFieldImage()}
             alt={field.field_name}
             className="w-full h-full object-cover"
           />
-          <Link
-            href={`/edit-field/${field.field_id}`}
-            className="absolute top-4 right-4 text-sm bg-greenish text-white rounded-sm px-6 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200 flex items-center gap-2"
-          >
-            <Pencil size={16} />
-            Edit
-          </Link>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-100/80" />
         </div>
-
-        {/* Weather Card */}
-        <div className="absolute -bottom-20 left-4 right-4">
-          <div className="bg-white rounded-xl p-4 shadow-lg">
-            <div className="mb-2">
-              <p className="text-sm text-black">{field.location || "Bandung, Jawa Barat"}</p>
-            </div>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="text-4xl font-bold mb-1">{sensor?.temperature ?? 25}°C</p>
-                <p className="text-sm text-black">Humidity {sensor?.humidity ?? 76}%</p>
-              </div>
-              <div className="w-15 h-15 mr-3">
-                <Image 
-                  src="/emojis/sunny.png"
-                  alt="Sunny weather"
-                  width={80}
-                  height={80}
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-            <div className="h-px bg-gray-300 -mx-1" />
-            <p className="mt-2 text-sm text-black">Today is a good day to apply pesticides.</p>
-          </div>
-        </div>
+        <Link
+          href={`/edit-field/${field.field_id}`}
+          className="absolute top-4 right-6 text-sm bg-greenish text-white rounded-sm px-6 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200 flex items-center gap-2 z-10"
+        >
+          <Pencil size={16} />
+          Edit
+        </Link>
       </div>
 
-      {/* Content wrapper to restore padding */}
-      <div className="px-4">
+      {/* Content Section */}
+      <div className="relative z-10 px-8 -mt-20">
+        {/* Weather Card */}
+        <div className="bg-white rounded-xl p-4 shadow-lg mb-4">
+          <div className="mb-2">
+            <p className="text-sm text-black">{field.location || "Bandung, Jawa Barat"}</p>
+          </div>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-4xl font-bold mb-1">{sensor?.temperature ?? 25}°C</p>
+              <p className="text-sm text-black">Humidity {sensor?.humidity ?? 76}%</p>
+            </div>
+            <div className="w-15 h-15 mr-3">
+              <Image 
+                src="/emojis/sunny.png"
+                alt="Sunny weather"
+                width={80}
+                height={80}
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+          <div className="h-px bg-gray-300 -mx-1" />
+          <p className="mt-2 text-sm text-black">Today is a good day to apply pesticides.</p>
+        </div>
+
         {/* AI Insight Card */}
         <div className="mb-4">
           <AiInsightCard />
         </div>
 
         {/* Field Statistics */}
-        <div className="bg-white rounded-xl shadow-lg">
+        <div className="bg-white rounded-xl shadow-lg mb-4">
           <div className="grid grid-cols-3">
             <div className="py-4 px-3 text-center relative">
               <p className="text-lg font-bold mb-0.5">

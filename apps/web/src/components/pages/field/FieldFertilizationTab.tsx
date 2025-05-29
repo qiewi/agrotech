@@ -44,7 +44,7 @@ export default function FertilizationCalculator({ onClose }: Props) {
   }
 
   return (
-    <div className="py-4">
+    <div className="py-4 px-6">
       <h2 className="text-xl text-greenish font-semibold mb-6">Fertilizer Calculator</h2>
 
       <div className="space-y-6">

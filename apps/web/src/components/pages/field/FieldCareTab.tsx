@@ -1,4 +1,5 @@
 import React from "react";
+import FieldCareCard from "./FieldCareCard";
 
 type CareStep = {
   icon: string;
@@ -17,38 +18,36 @@ type FieldCareTabProps = {
 
 export default function FieldCareTab({ careData }: FieldCareTabProps) {
   return (
-    <div className="py-4">
+    <div className="pb-20">
       {careData.length === 0 && (
-        <div className="text-gray-400 text-center py-8">
+        <div className="text-gray-400 text-center py-8 px-6">
           No care data for this crop.
         </div>
       )}
       {careData.map((stage) => (
-        <div key={stage.stage} className="mb-6">
+        <div key={stage.stage} className="pb-2 bg-gray-100">
           <div
-            className={`${
-              stage.stage === "Pre Nursery"
-                ? "bg-green-700 text-white"
-                : "bg-green-100 text-green-800"
-            } p-4 rounded-t-xl`}
+            className="bg-greenish px-6 py-4"
           >
-            <h2 className="font-medium">{stage.stage}</h2>
+            <h2 className="font-medium text-xl text-white">
+              {stage.stage}
+            </h2>
           </div>
-          <div className="bg-gray-50 p-4 rounded-b-xl">
-            <p className="text-sm text-gray-600 mb-4">
+          <div
+            className="bg-gray-100 px-6 py-4"
+          >
+            <p className="text-sm mt-1 text-greenish">
               {stage.description}
             </p>
-            <div className="grid grid-cols-3 gap-4">
+          </div>
+          <div className="bg-gray-50 px-6 py-4">
+            <div className="grid grid-cols-2 gap-4">
               {stage.steps.map((step, idx) => (
-                <div
+                <FieldCareCard
                   key={idx}
-                  className="bg-white p-3 rounded-xl text-center"
-                >
-                  <div className="bg-gray-100 rounded-full p-2 mx-auto mb-2 w-12 h-12 flex items-center justify-center">
-                    <span>{step.icon}</span>
-                  </div>
-                  <p className="text-xs text-gray-600">{step.label}</p>
-                </div>
+                  icon={step.icon}
+                  label={step.label}
+                />
               ))}
             </div>
           </div>

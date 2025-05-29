@@ -3,14 +3,12 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, MessageSquare } from "lucide-react";
-import FertilizationCalculator from "@/components/pages/field/fertilization-calculator";
+import FertilizationCalculator from "@/components/pages/field/FieldFertilizationTab";
 import { careStages } from "@/lib/data/data-care";
 import { fertilizationSchedule } from "@/lib/data/data-fertilization";
-import AiInsightCard from "@/components/pages/home/AiInsightCard";
 import Image from "next/image";
 import FieldInfoTab from "@/components/pages/field/FieldInfoTab";
 import FieldCareTab from "@/components/pages/field/FieldCareTab";
-import FieldFertilizationTab from "@/components/pages/field/FieldFertilizationTab";
 
 // Add material icons in head
 if (typeof document !== 'undefined') {
@@ -126,7 +124,7 @@ export default function FieldDetailPage({
 
       {/* Tabs */}
       <div className="px-6 border-b border-gray-200">
-        <div className="flex">
+        <div className="flex justify-between">
           <button
             onClick={() => setActiveTab("info")}
             className={`py-3 px-4 font-small ${
@@ -171,10 +169,7 @@ export default function FieldDetailPage({
         )}
 
         {activeTab === "fertilization" && (
-          <FieldFertilizationTab 
-            fertData={fertData} 
-            onClose={() => setActiveTab("info")} 
-          />
+          <FertilizationCalculator onClose={() => setActiveTab("info")}/>
         )}
       </main>
     </div>

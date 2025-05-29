@@ -44,7 +44,7 @@ export default function AddFieldPage() {
     { id: "Beans", name: "Beans", image: "/emojis/beans.png" },
   ];
 
-  const selectedCrop = crops.find((c) => c.id === cropType);
+const selectedCrop = crops.find((c) => c.id === cropType);
 
   // Validation function
   const validateForm = () => {

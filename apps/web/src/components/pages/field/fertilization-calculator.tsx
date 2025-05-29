@@ -53,7 +53,7 @@ export default function FertilizationCalculator({ onClose }: Props) {
   }
 
   return (
-    <div className="p-6 max-w-sm mx-auto">
+    <div>
       <h2 className="text-xl font-semibold mb-6">Fertilizer Calculator</h2>
 
       <div className="space-y-6">

@@ -7,6 +7,10 @@ import FertilizationCalculator from "@/components/pages/field/fertilization-calc
 import { careStages } from "@/lib/data/data-care";
 import { fertilizationSchedule } from "@/lib/data/data-fertilization";
 import AiInsightCard from "@/components/pages/home/AiInsightCard";
+import Image from "next/image";
+import FieldInfoTab from "@/components/pages/field/FieldInfoTab";
+import FieldCareTab from "@/components/pages/field/FieldCareTab";
+import FieldFertilizationTab from "@/components/pages/field/FieldFertilizationTab";
 
 // Add material icons in head
 if (typeof document !== 'undefined') {
@@ -18,22 +22,22 @@ if (typeof document !== 'undefined') {
 
 function getCropEmoji(cropType: string) {
     const crops = [
-        { id: "Tomato", emoji: "🍅" },
-        { id: "Eggplant", emoji: "🍆" },
-        { id: "Corn", emoji: "🌽" },
-        { id: "Potato", emoji: "🥔" },
-        { id: "Chili", emoji: "🌶️" },
-        { id: "Bellpepper", emoji: "🫑" },
-        { id: "Cucumber", emoji: "🥒" },
-        { id: "Ginger", emoji: "🫚" },
-        { id: "Broccoli", emoji: "🥦" },
-        { id: "Peas", emoji: "🫛" },
-        { id: "Lettuce", emoji: "🥬" },
-        { id: "Beans", emoji: "🫘" },
+        { id: "Tomato", image: "/emojis/tomato.png" },
+        { id: "Eggplant", image: "/emojis/eggplant.png" },
+        { id: "Corn", image: "/emojis/corn.png" },
+        { id: "Potato", image: "/emojis/potato.png" },
+        { id: "Chili", image: "/emojis/redchilli.png" },
+        { id: "Bellpepper", image: "/emojis/bellpepper.png" },
+        { id: "Cucumber", image: "/emojis/cucumber.png" },
+        { id: "Ginger", image: "/emojis/ginger.png" },
+        { id: "Broccoli", image: "/emojis/broccoli.png" },
+        { id: "Peas", image: "/emojis/peas.png" },
+        { id: "Lettuce", image: "/emojis/lettuce.png" },
+        { id: "Beans", image: "/emojis/beans.png" },
     ];
     const crop = crops.find((c) => c.id === cropType);
-    return crop ? crop.emoji : "";
-    }
+    return crop ? crop.image : "/emojis/seedling.png";
+}
 
 type Field = {
     field_id: number;
@@ -63,7 +67,6 @@ export default function FieldDetailPage({
 }) {
   const { id } = React.use(params);
   const [activeTab, setActiveTab] = useState("info");
-  const [showFertilizerModal, setShowFertilizerModal] = useState(false);
   const [field, setField] = useState<Field | null>(null);
   const [sensor, setSensor] = useState<SensorData | null>(null);
 
@@ -82,7 +85,7 @@ export default function FieldDetailPage({
       .then((data) => setSensor(data));
   }, [field?.field_code]);
 
-  // Ambil data care & fertilization sesuai crop_type
+  // Get care & fertilization data based on crop_type
   const cropType = field?.crop_type || "Tomato";
   const careData = careStages[cropType] || [];
   const fertData = fertilizationSchedule[cropType] || [];
@@ -110,7 +113,13 @@ export default function FieldDetailPage({
       {/* Crop Info */}
       <div className="px-6 mb-4 flex items-center">
         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
-            <span className="text-2xl">{getCropEmoji(field.crop_type || "") || "🌱"}</span>
+            <Image 
+              src={getCropEmoji(field.crop_type || "")}
+              alt={field.crop_type || "Crop"}
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
         </div>
         <span className="font-medium">{field.crop_type}</span>
       </div>
@@ -122,7 +131,7 @@ export default function FieldDetailPage({
             onClick={() => setActiveTab("info")}
             className={`py-3 px-4 font-small ${
               activeTab === "info"
-                ? "text-green-700 border-b-2 border-green-700"
+                ? "text-green-700 border-b-2 border-green-700 font-bold"
                 : "text-gray-500"
             }`}
           >
@@ -132,7 +141,7 @@ export default function FieldDetailPage({
             onClick={() => setActiveTab("care")}
             className={`py-3 px-4 font-small ${
               activeTab === "care"
-                ? "text-green-700 border-b-2 border-green-700"
+                ? "text-green-700 border-b-2 border-green-700 font-bold"
                 : "text-gray-500"
             }`}
           >
@@ -142,7 +151,7 @@ export default function FieldDetailPage({
             onClick={() => setActiveTab("fertilization")}
             className={`py-3 px-4 font-small ${
               activeTab === "fertilization"
-                ? "text-green-700 border-b-2 border-green-700"
+                ? "text-green-700 border-b-2 border-green-700 font-bold"
                 : "text-gray-500"
             }`}
           >
@@ -154,124 +163,18 @@ export default function FieldDetailPage({
       {/* Main Content */}
       <main className="flex-1 px-6 pb-24">
         {activeTab === "info" && (
-          <div className="py-4">
-            <div className="rounded-xl overflow-hidden mb-6">
-              <img
-                src={field.image_url || "/placeholder.svg"}
-                alt={field.field_name}
-                className="w-full h-48 object-cover"
-              />
-            </div>
-
-            <div className="bg-gray-50 rounded-xl p-4 mb-4">
-              <div className="flex items-center mb-2">
-                <span className="text-2xl mr-2">☀️</span>
-                <div>
-                  <p className="text-2xl font-bold">
-                    {sensor?.temperature ?? "--"}°C
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    Humidity {sensor?.humidity ?? "--"}%
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-600">
-                {/* Bisa tambahkan insight dari AI atau rules */}
-                Today is a good day to apply pesticides.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="bg-gray-50 rounded-xl p-3 text-center">
-                <p className="text-xl font-bold">
-                  {field.area_size ?? "--"}
-                </p>
-                <p className="text-gray-500 text-xs">Hectares</p>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-3 text-center">
-                <p className="text-xl font-bold">
-                  {field.plants ?? "--"}
-                </p>
-                <p className="text-gray-500 text-xs">Plants</p>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-3 text-center">
-                <p className="text-xl font-bold">
-                  {field.stage ?? "--"}
-                </p>
-                <p className="text-gray-500 text-xs">Growth Stage</p>
-              </div>
-            </div>
-
-            <AiInsightCard/>
-          </div>
+          <FieldInfoTab field={field} sensor={sensor} />
         )}
 
         {activeTab === "care" && (
-          <div className="py-4">
-            {careData.length === 0 && (
-              <div className="text-gray-400 text-center py-8">
-                No care data for this crop.
-              </div>
-            )}
-            {careData.map((stage) => (
-              <div key={stage.stage} className="mb-6">
-                <div
-                  className={`${
-                    stage.stage === "Pre Nursery"
-                      ? "bg-green-700 text-white"
-                      : "bg-green-100 text-green-800"
-                  } p-4 rounded-t-xl`}
-                >
-                  <h2 className="font-medium">{stage.stage}</h2>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-b-xl">
-                  <p className="text-sm text-gray-600 mb-4">
-                    {stage.description}
-                  </p>
-                  <div className="grid grid-cols-3 gap-4">
-                    {stage.steps.map((step, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-white p-3 rounded-xl text-center"
-                      >
-                        <div className="bg-gray-100 rounded-full p-2 mx-auto mb-2 w-12 h-12 flex items-center justify-center">
-                          <span>{step.icon}</span>
-                        </div>
-                        <p className="text-xs text-gray-600">{step.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FieldCareTab careData={careData} />
         )}
 
         {activeTab === "fertilization" && (
-          <div className="py-4">
-            <FertilizationCalculator onClose={() => setActiveTab("info")} />
-            <div className="bg-gray-50 rounded-xl p-4 mt-4">
-              <h3 className="font-medium mb-3">
-                Recommended Fertilization Schedule
-              </h3>
-              <div className="space-y-3">
-                {fertData.length === 0 && (
-                  <div className="text-gray-400 text-center py-8">
-                    No fertilization data for this crop.
-                  </div>
-                )}
-                {fertData.map((item, idx) => (
-                  <div key={idx} className="bg-white p-3 rounded-lg">
-                    <div className="flex justify-between mb-1">
-                      <span className="font-medium">{item.stage}</span>
-                      <span className="text-green-700">{item.amount}</span>
-                    </div>
-                    <p className="text-xs text-gray-500">{item.note}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <FieldFertilizationTab 
+            fertData={fertData} 
+            onClose={() => setActiveTab("info")} 
+          />
         )}
       </main>
     </div>

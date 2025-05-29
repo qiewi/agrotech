@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Lock } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { ro } from "react-day-picker/locale";
 import Header from "@/components/layout/Header";
 
 type Field = {

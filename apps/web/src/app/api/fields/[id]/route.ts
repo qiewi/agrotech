@@ -6,11 +6,12 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
-  if (!id) {
-    return NextResponse.json({ error: "Missing field id" }, { status: 400 });
-  }
   try {
+    const { id } = params;
+    if (!id) {
+      return NextResponse.json({ error: "Missing field id" }, { status: 400 });
+    }
+
     const result = await pool.query(
       `SELECT * FROM fields WHERE field_id = $1 LIMIT 1`,
       [id]

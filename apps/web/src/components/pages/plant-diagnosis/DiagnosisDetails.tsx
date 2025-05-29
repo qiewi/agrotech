@@ -78,9 +78,9 @@ export function DiagnosisDetails({
 
       {/* How to Handle */}
       <div className="w-full px-4 mt-2">
-        <div className="bg-[#F3F4F6] rounded-xl p-4">
+        <div className="bg-[#F3F4F6] rounded-xl px-6 py-4">
           <h3 className="text-lg font-bold mb-3">How to Handle</h3>
-          <ol className="list-decimal list-inside text-gray-700 text-sm space-y-2">
+          <ol className="list-decimal list-inside text-gray-700 text-sm space-y-2 text-justify">
             {result.solutions.map((solution, idx) => (
               <li key={idx}>{solution.description}</li>
             ))}

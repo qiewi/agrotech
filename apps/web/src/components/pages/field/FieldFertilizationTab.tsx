@@ -4,16 +4,6 @@ import { useState } from "react"
 import { Calculator } from "lucide-react"
 import Image from "next/image"
 
-const hideNumberInputSpinners = {
-  MozAppearance: 'textfield',
-  WebkitAppearance: 'none',
-  margin: 0,
-  '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-    WebkitAppearance: 'none',
-    margin: 0
-  }
-} as const
-
 type NPKValues = {
   N: number
   P: number

@@ -29,7 +29,7 @@ export default function DetailPage() {
 
   const komoditasFile = normalizeKomoditasParam(komoditasParam ?? "");
   const komoditas = (komoditasParam ?? "").replace(/-/g, " ");
-  const imageSrc = `/${komoditasFile}.png`;
+  const imageSrc = `/images/commodity/${komoditasFile}.png`;
   const deskripsi = DESKRIPSI[komoditasFile] || "Deskripsi belum tersedia.";
 
   // State
@@ -112,11 +112,11 @@ export default function DetailPage() {
     if (!ctx) return;
 
     // Set canvas dimensions
-    canvas.width = 320;
-    canvas.height = 150;
+    canvas.width = 640;
+    canvas.height = 280;
 
     // Chart margins
-    const margin = { top: 10, right: 10, bottom: 30, left: 40 };
+    const margin = { top: 20, right: 20, bottom: 40, left: 50 };
     const chartWidth = canvas.width - margin.left - margin.right;
     const chartHeight = canvas.height - margin.top - margin.bottom;
 
@@ -223,7 +223,7 @@ export default function DetailPage() {
       </div>
 
       {/* Price Graph */}
-      <div className="px-4 pt-6">
+      <div className="px-4 py-6">
         <h2 className="text-lg font-bold text-gray-900 mb-1">Price Graph</h2>
         <p className="text-gray-500 mb-3 text-sm">
           Check how the price fluctuates
@@ -254,8 +254,8 @@ export default function DetailPage() {
           </select>
         </div>
         {/* Chart */}
-        <div className="bg-white p-2 rounded shadow">
-          <canvas ref={canvasRef} className="w-full h-[150px]"></canvas>
+        <div className="bg-white p-2 rounded shadow mb-20">
+          <canvas ref={canvasRef} className="w-full h-[300px]"></canvas>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import AiInsightCard from "@/components/pages/home/AiInsightCard";
 import Link from "next/link";
+import { Pencil } from "lucide-react";
 
 type FieldInfoTabProps = {
   field: {
@@ -34,7 +35,7 @@ export default function FieldInfoTab({ field, sensor }: FieldInfoTabProps) {
   };
 
   return (
-    <div className="-mx-6">
+    <div className="-mx-6 ">
       {/* Field Image Container */}
       <div className="relative mb-24">
         <div className="h-48">
@@ -45,15 +46,16 @@ export default function FieldInfoTab({ field, sensor }: FieldInfoTabProps) {
           />
           <Link
             href={`/edit-field/${field.field_id}`}
-            className="absolute top-4 right-4 text-sm bg-white text-greenish rounded-sm px-5 py-1 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200"
+            className="absolute top-4 right-4 text-sm bg-greenish text-white rounded-sm px-6 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200 flex items-center gap-2"
           >
+            <Pencil size={16} />
             Edit
           </Link>
         </div>
 
         {/* Weather Card */}
         <div className="absolute -bottom-20 left-4 right-4">
-          <div className="bg-white rounded-xl p-4 shadow-sm">
+          <div className="bg-white rounded-xl p-4 shadow-lg">
             <div className="mb-2">
               <p className="text-sm text-black">{field.location || "Bandung, Jawa Barat"}</p>
             </div>
@@ -86,7 +88,7 @@ export default function FieldInfoTab({ field, sensor }: FieldInfoTabProps) {
         </div>
 
         {/* Field Statistics */}
-        <div className="bg-white rounded-xl shadow-sm">
+        <div className="bg-white rounded-xl shadow-lg">
           <div className="grid grid-cols-3">
             <div className="py-4 px-3 text-center relative">
               <p className="text-lg font-bold mb-0.5">

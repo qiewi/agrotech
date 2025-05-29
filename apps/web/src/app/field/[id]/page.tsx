@@ -9,6 +9,7 @@ import { fertilizationSchedule } from "@/lib/data/data-fertilization";
 import Image from "next/image";
 import FieldInfoTab from "@/components/pages/field/FieldInfoTab";
 import FieldCareTab from "@/components/pages/field/FieldCareTab";
+import { Pencil } from "lucide-react";
 
 // Add material icons in head
 if (typeof document !== 'undefined') {
@@ -93,33 +94,34 @@ export default function FieldDetailPage({
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       {/* Header */}
-      <header className="p-6 flex items-center justify-between bg-white">
-        <div className="flex items-center">
-          <Link href="/home" className="mr-4">
-            <ArrowLeft className="h-6 w-6 text-gray-800" />
-          </Link>
-          <h1 className="text-xl font-medium">{field.field_name}</h1>
-        </div>
-        {/* <Link
-          href={`/change-crop/${field.field_id}`}
-          className="bg-green-700 text-white px-3 py-1 rounded-md text-sm"
-        >
-          Change Crop
-        </Link> */}
+      <header className="p-4 pt-6 flex items-center justify-between bg-white relative border-b mb-4">
+        <Link href="/home" className="absolute left-6">
+          <ArrowLeft className="h-6 w-6 text-gray-800" />
+        </Link>
+        <h1 className="text-xl font-bold flex-1 text-center">{field.field_name}</h1>
       </header>
 
       {/* Crop Info */}
-      <div className="px-6 mb-4 flex items-center bg-white">
-        <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
-            <Image 
-              src={getCropEmoji(field.crop_type || "")}
-              alt={field.crop_type || "Crop"}
-              width={24}
-              height={24}
-              className="w-6 h-6"
-            />
+      <div className="px-6 mb-4 flex items-center bg-white justify-between">
+        <div className="flex flex-row items-center">
+          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+              <Image 
+                src={getCropEmoji(field.crop_type || "")}
+                alt={field.crop_type || "Crop"}
+                width={36}
+                height={36}
+                className="w-8 h-8"
+              />
+          </div>
+          <span className="font-medium text-2xl">{field.crop_type}</span>
         </div>
-        <span className="font-medium">{field.crop_type}</span>
+        <Link
+          href={`/edit-field/${field.field_id}`}
+          className="flex-row text-sm bg-greenish text-white rounded-lg px-6 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200 flex items-center gap-2 z-10"
+        >
+          <Pencil size={16} />
+          Edit
+        </Link>
       </div>
 
       {/* Tabs */}

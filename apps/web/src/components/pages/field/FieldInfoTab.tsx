@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import AiInsightCard from "@/components/pages/home/AiInsightCard";
-import Link from "next/link";
-import { Pencil } from "lucide-react";
+
 
 type FieldInfoTabProps = {
   field: {
@@ -46,13 +45,6 @@ export default function FieldInfoTab({ field, sensor }: FieldInfoTabProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-100/80" />
         </div>
-        <Link
-          href={`/edit-field/${field.field_id}`}
-          className="absolute top-4 right-6 text-sm bg-greenish text-white rounded-sm px-6 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-shadow duration-200 flex items-center gap-2 z-10"
-        >
-          <Pencil size={16} />
-          Edit
-        </Link>
       </div>
 
       {/* Content Section */}

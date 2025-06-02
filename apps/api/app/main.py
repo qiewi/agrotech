@@ -129,6 +129,8 @@ class SensorData(BaseModel):
     id: str
     temperature: float
     humidity: float
+    soil_moisture: float
+    light: float
 
 # Data disimpan per lahan (id)
 data_store = {}
@@ -138,7 +140,9 @@ async def receive_sensor(data: SensorData):
     # Simpan data terakhir per lahan
     data_store[data.id] = {
         "temperature": data.temperature,
-        "humidity": data.humidity
+        "humidity": data.humidity,
+        "soil_moisture": data.soil_moisture,
+        "light": data.light
     }
     return {"message": "Data received"}
 

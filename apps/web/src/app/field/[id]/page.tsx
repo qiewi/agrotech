@@ -46,9 +46,9 @@ type Field = {
     location: string;
     crop_type?: string;
     area_size?: number;
-    plants?: number;
-    stage?: string;
+    date_created?: Date,
 };
+
 
 type SensorData = {
   temperature?: number;
@@ -68,7 +68,6 @@ export default function FieldDetailPage({
   const [activeTab, setActiveTab] = useState("info");
   const [field, setField] = useState<Field | null>(null);
   const [sensor, setSensor] = useState<SensorData | null>(null);
-
   // Fetch field data from DB
   useEffect(() => {
     fetch(`/api/fields/${id}`)
@@ -76,12 +75,21 @@ export default function FieldDetailPage({
       .then((data) => setField(data.field));
   }, [id]);
 
-  // Fetch sensor data from FastAPI
   useEffect(() => {
     if (!field?.field_code) return;
-    fetch(`http://0.0.0.0:8000/sensor/${field.field_code}`)
-      .then((res) => res.json())
-      .then((data) => setSensor(data));
+
+    let interval: NodeJS.Timeout;
+
+    const fetchSensor = () => {
+      fetch(`http://192.168.1.20:8000/sensor/${field.field_code}`)
+        .then((res) => res.json())
+        .then((data) => setSensor(data));
+    };
+
+    fetchSensor(); // fetch pertama kali
+    interval = setInterval(fetchSensor, 1000); // fetch tiap 1 detik
+
+    return () => clearInterval(interval); // cleanup saat unmount
   }, [field?.field_code]);
 
   // Get care & fertilization data based on crop_type

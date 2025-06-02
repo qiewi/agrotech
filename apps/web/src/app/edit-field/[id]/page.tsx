@@ -44,12 +44,13 @@ export default function EditFieldPage({
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCropPicker, setShowCropPicker] = useState(false);
-
+  const { id } = params;
+  
   // Fetch existing field data
   useEffect(() => {
     const fetchField = async () => {
       try {
-        const res = await fetch(`/api/fields/${params.id}`);
+        const res = await fetch(`/api/fields/${id}`);
         const data = await res.json();
         if (data.field) {
           setOriginalField(data.field);
@@ -66,7 +67,7 @@ export default function EditFieldPage({
       }
     };
     fetchField();
-  }, [params.id]);
+  }, [id]);
 
   const crops = [
     { id: "Tomato", name: "Tomato", image: "/emojis/tomato.png" },
@@ -150,7 +151,7 @@ export default function EditFieldPage({
     setSuccess(false);
 
     try {
-      const res = await fetch(`/api/fields/${params.id}`, {
+      const res = await fetch(`/api/fields/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -164,7 +165,7 @@ export default function EditFieldPage({
 
       if (!res.ok) throw new Error("Failed to update field");
       setSuccess(true);
-      router.push(`/field/${params.id}`);
+      router.push(`/field/${id}`);
     } catch (err: any) {
       setError(err.message);
     } finally {

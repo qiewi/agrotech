@@ -782,3 +782,136 @@ export const careStages: Record<string, Array<{
     },
   ],
 };
+
+
+type Stage = {
+  stage: string;
+  description: string;
+  steps: { icon: string; label: string }[];
+};
+
+// Mapping hari ke index stage untuk setiap cropType
+const stageRanges: Record<string, Array<{ start: number; end: number; index: number }>> = {
+  Tomato: [
+    { start: 1, end: 21, index: 0 },    // Pre-Nursery (3 minggu)
+    { start: 22, end: 42, index: 1 },   // Nursery (3 minggu)
+    { start: 43, end: 49, index: 2 },   // Transplanting (1 minggu)
+    { start: 50, end: 77, index: 3 },   // Vegetative (4 minggu)
+    { start: 78, end: 98, index: 4 },   // Flowering (3 minggu)
+    { start: 99, end: 112, index: 5 },  // Fruiting (2 minggu)
+    { start: 113, end: 140, index: 6 }, // Harvest (4 minggu)
+  ],
+  Corn: [
+    { start: 1, end: 14, index: 0 },    // Land Preparation (2 minggu)
+    { start: 15, end: 21, index: 1 },   // Sowing (1 minggu)
+    { start: 22, end: 35, index: 2 },   // Germination (2 minggu)
+    { start: 36, end: 63, index: 3 },   // Vegetative (4 minggu)
+    { start: 64, end: 77, index: 4 },   // Tasseling & Silking (2 minggu)
+    { start: 78, end: 105, index: 5 },  // Grain Filling (4 minggu)
+    { start: 106, end: 119, index: 6 }, // Harvest (2 minggu)
+  ],
+  Eggplant: [
+    { start: 1, end: 21, index: 0 },
+    { start: 22, end: 42, index: 1 },
+    { start: 43, end: 49, index: 2 },
+    { start: 50, end: 84, index: 3 },
+    { start: 85, end: 112, index: 4 },
+    { start: 113, end: 140, index: 5 },
+    { start: 141, end: 168, index: 6 },
+  ],
+  Potato: [
+    { start: 1, end: 14, index: 0 },
+    { start: 15, end: 21, index: 1 },
+    { start: 22, end: 35, index: 2 },
+    { start: 36, end: 63, index: 3 },
+    { start: 64, end: 77, index: 4 },
+    { start: 78, end: 112, index: 5 },
+    { start: 113, end: 140, index: 6 },
+  ],
+  Chili: [
+    { start: 1, end: 21, index: 0 },
+    { start: 22, end: 42, index: 1 },
+    { start: 43, end: 49, index: 2 },
+    { start: 50, end: 84, index: 3 },
+    { start: 85, end: 112, index: 4 },
+    { start: 113, end: 140, index: 5 },
+    { start: 141, end: 168, index: 6 },
+  ],
+  Bellpepper: [
+    { start: 1, end: 21, index: 0 },
+    { start: 22, end: 42, index: 1 },
+    { start: 43, end: 49, index: 2 },
+    { start: 50, end: 84, index: 3 },
+    { start: 85, end: 112, index: 4 },
+    { start: 113, end: 140, index: 5 },
+    { start: 141, end: 168, index: 6 },
+  ],
+  Cucumber: [
+    { start: 1, end: 14, index: 0 },
+    { start: 15, end: 21, index: 1 },
+    { start: 22, end: 35, index: 2 },
+    { start: 36, end: 63, index: 3 },
+    { start: 64, end: 77, index: 4 },
+    { start: 78, end: 91, index: 5 },
+    { start: 92, end: 105, index: 6 },
+  ],
+  Ginger: [
+    { start: 1, end: 21, index: 0 },
+    { start: 22, end: 28, index: 1 },
+    { start: 29, end: 63, index: 2 },
+    { start: 64, end: 150, index: 3 },
+    { start: 151, end: 240, index: 4 },
+    { start: 241, end: 300, index: 5 },
+  ],
+  Broccoli: [
+    { start: 1, end: 42, index: 0 },
+    { start: 43, end: 84, index: 1 },
+    { start: 85, end: 91, index: 2 },
+    { start: 92, end: 126, index: 3 },
+    { start: 127, end: 168, index: 4 },
+    { start: 169, end: 196, index: 5 },
+  ],
+  Peas: [
+    { start: 1, end: 14, index: 0 },
+    { start: 15, end: 21, index: 1 },
+    { start: 22, end: 35, index: 2 },
+    { start: 36, end: 63, index: 3 },
+    { start: 64, end: 77, index: 4 },
+    { start: 78, end: 105, index: 5 },
+    { start: 106, end: 140, index: 6 },
+  ],
+  Lettuce: [
+    { start: 1, end: 14, index: 0 },
+    { start: 15, end: 21, index: 1 },
+    { start: 22, end: 35, index: 2 },
+    { start: 36, end: 63, index: 3 },
+    { start: 64, end: 77, index: 4 },
+    { start: 78, end: 105, index: 5 },
+  ],
+  Beans: [
+    { start: 1, end: 14, index: 0 },
+    { start: 15, end: 21, index: 1 },
+    { start: 22, end: 35, index: 2 },
+    { start: 36, end: 63, index: 3 },
+    { start: 64, end: 77, index: 4 },
+    { start: 78, end: 91, index: 5 },
+    { start: 92, end: 119, index: 6 },
+  ],
+};
+
+export function getStage(
+  cropType: string,
+  day: number
+): Stage | null {
+  const stages = careStages[cropType];
+  if (!stages) return null;
+
+  const ranges = stageRanges[cropType];
+  if (!ranges) return stages[0]; // fallback ke stage pertama
+
+  const found = ranges.find((r) => day >= r.start && day <= r.end);
+  if (found) return stages[found.index];
+
+  // Jika hari melebihi semua range, kembalikan stage terakhir
+  return stages[stages.length - 1];
+}

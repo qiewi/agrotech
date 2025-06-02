@@ -18,6 +18,7 @@ type Field = {
   location: string
   crop_type?: string
   area_size?: number
+  date_created?: Date;
 }
 
 type SensorData = {
@@ -107,7 +108,7 @@ export default function Home() {
     let isMounted = true
     const fetchData = async () => {
       try {
-        const res = await fetch("http://192.168.31.235:8000/sensor")
+        const res = await fetch("http://192.168.1.20:8000/sensor")
         if (!res.ok) throw new Error("Gagal fetch data sensor")
         const data: AllSensorData = await res.json()
         if (isMounted) setAllSensors(data)
@@ -116,7 +117,7 @@ export default function Home() {
       }
     }
     fetchData()
-    intervalRef.current = setInterval(fetchData, 5000)
+    intervalRef.current = setInterval(fetchData, 1000)
     return () => {
       isMounted = false
       if (intervalRef.current) clearInterval(intervalRef.current)

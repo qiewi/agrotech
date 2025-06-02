@@ -1,7 +1,7 @@
 <div align="center">
   <br />
     <a href="https://agrotech.vercel.app" target="_blank">
-      <img src="https://github.com/user-attachments/assets/049f0f42-824a-4216-bc46-aaa5f2315e60" alt="Project Banner">
+      <img src="https://github.com/user-attachments/assets/01d2a42c-2ec0-4705-a546-5fc84f8c076e" alt="Project Banner">
     </a>
   <br />
 

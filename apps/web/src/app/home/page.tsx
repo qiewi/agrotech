@@ -50,6 +50,15 @@ export default function Home() {
   const [allSensors, setAllSensors] = useState<AllSensorData>({})
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
+
+  const [weather, setWeather] = useState<{
+    temperature: number;
+    condition: string;
+    humidity: number;
+    precipitation: string;
+    windSpeed: string;
+  } | null>(null);
+
   // Fetch fields from DB
   useEffect(() => {
     if (!user) return
@@ -57,6 +66,41 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => setFields(data.fields || []))
   }, [user])
+
+  useEffect(() => {
+    // Contoh: Bandung
+    const lat = -6.9;
+    const lon = 107.6;
+    fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=precipitation,relativehumidity_2m`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const current = data.current_weather;
+        // Ambil humidity dari hourly (karena current_weather tidak ada humidity)
+        const nowHour = new Date(current.time).getHours();
+        const humidityIndex = data.hourly.time.findIndex((t: string) =>
+          t.startsWith(current.time.slice(0, 13))
+        );
+        const humidity =
+          data.hourly.relativehumidity_2m[humidityIndex] ?? "--";
+        const precipitation =
+          data.hourly.precipitation[humidityIndex] !== undefined
+            ? `${data.hourly.precipitation[humidityIndex]} mm`
+            : "--";
+        setWeather({
+          temperature: current.temperature,
+          condition: current.weathercode === 0
+            ? "Clear"
+            : current.weathercode === 3
+            ? "Cloudy"
+            : "Partly Cloudy",
+          humidity,
+          precipitation,
+          windSpeed: `${current.windspeed} km/h`,
+        });
+      });
+  }, []);
 
   // Fetch sensor data
   useEffect(() => {
@@ -101,15 +145,15 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex-1 px-4 pb-24">
         {/* Weather Widget (klik ke /weather) */}
-        <Link href="/weather" className="block mb-6">
-          <WeatherCard
-            temperature={24}
-            condition={"Today is partly sunny day!"}
-            humidity={77}
-            precipitation={"< 0.01 in"}
-            windSpeed={"6 mph/s"}
-          />
-        </Link>
+      <Link href="/weather" className="block mb-6">
+              <WeatherCard
+                temperature={weather?.temperature ?? 24}
+                condition={weather?.condition ?? "Loading..."}
+                humidity={weather?.humidity ?? 77}
+                precipitation={weather?.precipitation ?? "< 0.01 in"}
+                windSpeed={weather?.windSpeed ?? "6 mph/s"}
+              />
+            </Link>
 
         {/* AI Chat Widget */}
         <div className="mb-6">

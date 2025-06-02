@@ -43,10 +43,15 @@ export default function ChatbotPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow relative w-full">
+    <div className="flex flex-col min-h-screen bg-white relative">
       <ChatHeader />
-      <MessageList messages={messages} />
-      <ChatInput input={input} setInput={setInput} handleSend={handleSend} />
+      <div className="flex overflow-y-auto pb-40"> {/* padding bawah besar */}
+        <MessageList messages={messages} />
+      </div>
+      {/* ChatInput fixed di atas BottomNav */}
+      <div className="fixed bottom-16 left-0 w-full z-20 bg-white border-t border-gray-100">
+        <ChatInput input={input} setInput={setInput} handleSend={handleSend} />
+      </div>
     </div>
-  )
+  );
 }

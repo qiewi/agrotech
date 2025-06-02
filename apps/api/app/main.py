@@ -328,7 +328,7 @@ async def predict(file: UploadFile = File(...)):
     })
 
 OLLAMA_URL = "http://localhost:11434"
-OLLAMA_MODEL = "qwen2.5:0.5b"
+OLLAMA_MODEL = "sailor2:1b"
 PROMPT_TEMPLATE = """
 Kamu adalah AgroBot, asisten digital untuk petani Indonesia. Tugasmu adalah membantu petani kecil di Indonesia dengan memberikan jawaban yang singkat, praktis, dan mudah dipahami. Jawablah setiap pertanyaan dengan bahasa Indonesia yang sederhana dan ramah.
 

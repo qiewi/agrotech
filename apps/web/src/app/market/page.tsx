@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import FoodPriceGridCard from "@/components/pages/market/FoodPriceCard";
 import CustomDatePicker from "@/components/pages/market/CustomDatePicker";
-import { KOMODITAS, KomoditasKategori, KomoditasItem } from "@/lib/data/data-komoditas";
+import { KOMODITAS, KomoditasKategori } from "@/lib/data/data-komoditas";
 import { PROVINSI } from "@/lib/data/data-provinsi";
 import KategoriCircleFilter from "@/components/pages/market/KategoriCircleFilter";
 import Header from "@/components/layout/Header";
@@ -16,14 +16,6 @@ type KomoditasData = {
     };
   };
 };
-
-const KATEGORI_LIST: (KomoditasKategori | "Semua")[] = [
-  "Semua",
-  "Tanaman Pangan",
-  "Holtikultura",
-  "Perkebunan",
-  "Peternakan",
-];
 
 export default function FoodPriceInfo() {
   const [data, setData] = useState<KomoditasData>({});

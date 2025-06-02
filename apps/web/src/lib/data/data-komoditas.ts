@@ -1,13 +1,8 @@
-// export const KOMODITAS = [
-//     "Bawang Merah",
-//     "Bawang Putih Bonggol",
-//     "Beras Medium",
-//     "Beras Premium",
-//     "Cabai Merah Keriting",
-//     "Cabai Rawit Merah",
-//   ];
-
-export type KomoditasKategori = "Tanaman Pangan" | "Holtikultura" | "Perkebunan" | "Peternakan";
+export type KomoditasKategori =
+  | "Tanaman Pangan"
+  | "Holtikultura"
+  | "Perkebunan"
+  | "Peternakan";
 
 export interface KomoditasItem {
   nama: string;
@@ -16,49 +11,24 @@ export interface KomoditasItem {
 }
 
 export const KOMODITAS: KomoditasItem[] = [
-  // Tanaman Pangan
-  { nama: "Gabah Kering Panen", kategori: "Tanaman Pangan", kode: "gabah-kering-panen" },
-  { nama: "Gabah Kering Giling", kategori: "Tanaman Pangan", kode: "gabah-kering-giling" },
-  { nama: "Beras Medium", kategori: "Tanaman Pangan", kode: "beras-medium" },
-  { nama: "Beras Premium", kategori: "Tanaman Pangan", kode: "beras-premium" },
-  { nama: "Jagung Pipil Kuning", kategori: "Tanaman Pangan", kode: "jagung-pipil-kuning" },
-  { nama: "Kedelai", kategori: "Tanaman Pangan", kode: "kedelai" },
-
-  // Holtikultura
+  // Holtikutura
   { nama: "Bawang Merah", kategori: "Holtikultura", kode: "bawang-merah" },
   { nama: "Bawang Putih Bonggol", kategori: "Holtikultura", kode: "bawang-putih-bonggol" },
-  { nama: "Cabai Rawit Merah", kategori: "Holtikultura", kode: "cabai-rawit-merah" },
   { nama: "Cabai Merah Keriting", kategori: "Holtikultura", kode: "cabai-merah-keriting" },
-  { nama: "Krisan", kategori: "Holtikultura", kode: "krisan" },
-  { nama: "Durian", kategori: "Holtikultura", kode: "durian" },
-  { nama: "Manggis", kategori: "Holtikultura", kode: "manggis" },
-  { nama: "Semangka", kategori: "Holtikultura", kode: "semangka" },
-  { nama: "Melon", kategori: "Holtikultura", kode: "melon" },
-  { nama: "Jahe", kategori: "Holtikultura", kode: "jahe" },
+  { nama: "Cabai Rawit Merah", kategori: "Holtikultura", kode: "cabai-rawit-merah" },
 
-  // Perkebunan
-  { nama: "Bunga Cengkeh Kering", kategori: "Perkebunan", kode: "bunga-cengkeh-kering" },
-  { nama: "Kakao Fermentasi", kategori: "Perkebunan", kode: "kakao-fermentasi" },
-  { nama: "Kakao Non Fermentasi", kategori: "Perkebunan", kode: "kakao-non-fermentasi" },
-  { nama: "Kelapa Bulat", kategori: "Perkebunan", kode: "kelapa-bulat" },
-  { nama: "Kopra", kategori: "Perkebunan", kode: "kopra" },
-  { nama: "Gula Merah Kelapa", kategori: "Perkebunan", kode: "gula-merah-kelapa" },
-  { nama: "Kopi Arabika Berasan", kategori: "Perkebunan", kode: "kopi-arabika-berasan" },
-  { nama: "Kopi Robusta Berasan", kategori: "Perkebunan", kode: "kopi-robusta-berasan" },
-  { nama: "Minyak Nilam", kategori: "Perkebunan", kode: "minyak-nilam" },
-  { nama: "Nilam Daun Kering", kategori: "Perkebunan", kode: "nilam-daun-kering" },
-  { nama: "Minyak Sereh Wangi", kategori: "Perkebunan", kode: "minyak-sereh-wangi" },
-  { nama: "Teh Pucuk Basah", kategori: "Perkebunan", kode: "teh-pucuk-basah" },
+  // Tanaman Pangan
+  { nama: "Beras Medium", kategori: "Tanaman Pangan", kode: "beras-medium" },
+  { nama: "Beras Premium", kategori: "Tanaman Pangan", kode: "beras-premium" },
+  { nama: "Tepung Terigu (Curah)", kategori: "Tanaman Pangan", kode: "tepung-terigu-curah" },
 
   // Peternakan
-  { nama: "Daging Sapi", kategori: "Peternakan", kode: "daging-sapi" },
-  { nama: "Daging Kambing", kategori: "Peternakan", kode: "daging-kambing" },
+  { nama: "Daging Ayam Ras", kategori: "Peternakan", kode: "daging-ayam-ras" },
+  { nama: "Daging Sapi Murni", kategori: "Peternakan", kode: "daging-sapi-murni" },
   { nama: "Telur Ayam Ras", kategori: "Peternakan", kode: "telur-ayam-ras" },
-  { nama: "Telur Ayam Kampung", kategori: "Peternakan", kode: "telur-ayam-kampung" },
-  { nama: "Daging Ayam Boiler", kategori: "Peternakan", kode: "daging-ayam-boiler" },
-  { nama: "Daging Ayam Kampung", kategori: "Peternakan", kode: "daging-ayam-kampung" },
-  { nama: "Bebek Jantan", kategori: "Peternakan", kode: "bebek-jantan" },
-  { nama: "Bebek Betina", kategori: "Peternakan", kode: "bebek-betina" },
-  { nama: "Menthok Jantan", kategori: "Peternakan", kode: "menthok-jantan" },
-  { nama: "Menthok Betina", kategori: "Peternakan", kode: "menthok-betina" },
+
+  // Perkebunan (asumsi gula dan minyak dari perkebunan)
+  { nama: "Gula Konsumsi", kategori: "Perkebunan", kode: "gula-konsumsi" },
+  { nama: "Minyak Goreng Curah", kategori: "Perkebunan", kode: "minyak-goreng-curah" },
+  { nama: "Minyak Goreng Kemasan Sederhana", kategori: "Perkebunan", kode: "minyak-goreng-kemasan-sederhana" },
 ];

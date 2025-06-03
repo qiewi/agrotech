@@ -92,10 +92,10 @@ export default function Home() {
         setWeather({
           temperature: current.temperature,
           condition: current.weathercode === 0
-            ? "Clear"
+            ? "Today is Clear!"
             : current.weathercode === 3
-            ? "Cloudy"
-            : "Partly Cloudy",
+            ? "Today is Cloudy!"
+            : "Today is Partly Cloudy!",
           humidity,
           precipitation,
           windSpeed: `${current.windspeed} km/h`,

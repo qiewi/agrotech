@@ -1,20 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Cloud, Sun, CloudRain } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
+import WeatherCard from "@/components/pages/home/WeatherCard";
 
 function getIcon(code: number) {
   // Open-Meteo weathercode: 0=clear, 1/2=partly, 3=cloudy, 61+=rain
-  if (code === 0) return <Sun className="h-5 w-5" />;
-  if (code === 3) return <Cloud className="h-5 w-5" />;
-  if (code >= 61) return <CloudRain className="h-5 w-5" />;
-  return <Cloud className="h-5 w-5" />;
+  if (code === 0) return "/emojis/clear.png";
+  if (code === 3) return "/emojis/cloudy.png";
+  return "/emojis/partly-cloudy.png";
 }
 
 export default function WeatherPage() {
   const [current, setCurrent] = useState<any>(null);
   const [forecast, setForecast] = useState<
-    { day: string; icon: React.ReactElement; temp: string; low: string }[]
+    { day: string; weathercode: number; temp: string; low: string }[]
   >([]);
 
   useEffect(() => {
@@ -28,13 +29,19 @@ export default function WeatherPage() {
         setCurrent(data.current_weather);
         const days = data.daily.time.map((t: string, i: number) => ({
           day: new Date(t).toLocaleDateString("en-US", { weekday: "short" }),
-          icon: getIcon(data.daily.weathercode[i]),
+          weathercode: data.daily.weathercode[i],
           temp: `${Math.round(data.daily.temperature_2m_max[i])}°`,
           low: `${Math.round(data.daily.temperature_2m_min[i])}°`,
         }));
         setForecast(days);
       });
   }, []);
+
+  const getCondition = (weathercode: number) => {
+    if (weathercode === 0) return "Today is Clear!";
+    if (weathercode === 3) return "Today is Cloudy!";
+    return "Today is Partly Cloudy!";
+  };
 
   return (
     <div className="flex flex-col w-full pb-20 px-2 bg-white">
@@ -49,32 +56,14 @@ export default function WeatherPage() {
       {/* Main Content */}
       <main className="flex-1 px-6 pb-24">
         {/* Current Weather */}
-        <div className="flex justify-center mb-8">
-          <div className="text-center">
-            <div className="flex justify-center mb-2">
-              <Cloud className="h-16 w-16 text-gray-600" />
-            </div>
-            <h2 className="text-4xl font-bold mb-1">
-              {current ? `${current.temperature}°C` : "--"}
-            </h2>
-            <p className="text-gray-500">
-              {current
-                ? current.weathercode === 0
-                  ? "Clear"
-                  : current.weathercode === 3
-                  ? "Cloudy"
-                  : "Partly Cloudy"
-                : "Loading..."}
-            </p>
-            <div className="flex justify-center space-x-8 mt-4">
-              <div className="text-center">
-                <p className="text-lg font-bold">
-                  {current ? `${current.windspeed} km/h` : "--"}
-                </p>
-                <p className="text-gray-500 text-xs">Wind Speed</p>
-              </div>
-            </div>
-          </div>
+        <div className="mb-8">
+          <WeatherCard
+            temperature={current ? current.temperature : 24}
+            condition={current ? getCondition(current.weathercode) : "Loading..."}
+            humidity={77}
+            precipitation="--"
+            windSpeed={current ? `${current.windspeed} km/h` : "--"}
+          />
         </div>
 
         {/* Weekly Forecast */}
@@ -86,9 +75,19 @@ export default function WeatherPage() {
                 index < forecast.length - 1 ? "border-b border-gray-100" : ""
               }`}
             >
-              <span className="font-medium">{day.day}</span>
-              <div className="flex items-center">{day.icon}</div>
-              <div className="flex space-x-4">
+              <div className="min-w-10">
+                <span className="font-medium">{day.day}</span>
+              </div>
+
+              <div className="flex items-center">
+                <Image 
+                  src={getIcon(day.weathercode)}
+                  alt="Weather condition"
+                  width={32}
+                  height={32}
+                />
+              </div>
+              <div className="flex space-x-4 min-w-16">
                 <span className="font-bold">{day.temp}</span>
                 <span className="text-gray-400">{day.low}</span>
               </div>

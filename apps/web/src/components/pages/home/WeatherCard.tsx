@@ -1,4 +1,3 @@
-import { Cloud, Sun } from "lucide-react"
 import Image from "next/image"
 
 interface WeatherCardProps {
@@ -7,6 +6,12 @@ interface WeatherCardProps {
   humidity: number
   precipitation: string
   windSpeed: string
+}
+
+function getWeatherIcon(condition: string): string {
+  if (condition.includes("Clear")) return "/emojis/clear.png";
+  if (condition.includes("Cloudy!")) return "/emojis/cloudy.png";
+  return "/emojis/partly-cloudy.png";
 }
 
 const WeatherCard = ({
@@ -25,7 +30,12 @@ const WeatherCard = ({
     >
       <div className="flex flex-col items-center mb-6 opacity-100">
         <div className="relative mb-2 text-6xl pb-2">
-          <Image src="/emojis/sun.png" alt="Sun" width={100} height={100} />
+          <Image 
+            src={getWeatherIcon(condition)} 
+            alt="Weather condition" 
+            width={100} 
+            height={100} 
+          />
         </div>
         <h1 className="text-4xl text-black">{temperature}°C</h1>
         <p className="text-black text-sm mt-1">{condition}</p>
